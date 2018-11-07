@@ -6,6 +6,12 @@
 package interfaz;
 
 import java.awt.CardLayout;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
@@ -22,6 +28,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
+        jPanelImgInicio.setVisible(true);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -37,14 +47,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPabelBarraSuperior = new javax.swing.JPanel();
         lbCerrar = new javax.swing.JLabel();
         lbMinimizar = new javax.swing.JLabel();
+        btnFamilia = new javax.swing.JButton();
+        btnAgenda = new javax.swing.JButton();
         jPanelContenido = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jPanelCanes = new javax.swing.JPanel();
+        jPanelImgInicio = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanelRegCan = new javax.swing.JPanel();
+        btnCancelarRegCan = new javax.swing.JButton();
+        btnSubirImagen = new javax.swing.JButton();
+        lblRegCan = new javax.swing.JLabel();
+        lblDescripcionRegCan = new javax.swing.JLabel();
+        lblNombreRegCan = new javax.swing.JLabel();
+        lblAlturaRegCan = new javax.swing.JLabel();
+        lblPesoRegCan = new javax.swing.JLabel();
+        lblImgRegCan = new javax.swing.JLabel();
+        btnConfirmarRegCan = new javax.swing.JButton();
+        txtDescripcionRegCan = new javax.swing.JTextField();
+        txtPesoRegCan = new javax.swing.JTextField();
+        txtNombreRegCan = new javax.swing.JTextField();
+        txtAlturaRegCan = new javax.swing.JTextField();
+        jPanelMisCanes = new javax.swing.JPanel();
+        listaMisCanes = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        btnEliminarCan = new javax.swing.JButton();
+        btnAgregarCan = new javax.swing.JButton();
+        lblMisCanes = new javax.swing.JLabel();
+        btnMisCanes = new javax.swing.JButton();
+        btnActividades1 = new javax.swing.JButton();
+        btnRecordatorios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(900, 600));
@@ -53,6 +83,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        menuPrincipal.setBackground(new java.awt.Color(217, 201, 201));
         menuPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPabelBarraSuperior.setBackground(new java.awt.Color(0, 0, 0));
@@ -97,53 +128,203 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menuPrincipal.add(jPabelBarraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenPrincipal.jpg"))); // NOI18N
-        jPanelContenido.add(jLabel2);
-
-        menuPrincipal.add(jPanelContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 560, 500));
-
-        jButton1.setText("Recordatorios");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnFamilia.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnFamilia.setText("Familia");
+        btnFamilia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnFamiliaActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 260, 30));
+        menuPrincipal.add(btnFamilia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 260, 30));
 
-        jButton2.setText("Mis canes");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgenda.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgenda.setText("Agenda");
+        btnAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAgendaActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 260, 30));
+        menuPrincipal.add(btnAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 30));
 
-        jButton3.setText("Calendario");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jPanelContenido.setBackground(new java.awt.Color(217, 201, 201));
+
+        jPanelImgInicio.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelImgInicio.setLayout(null);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenPrincipal.jpg"))); // NOI18N
+        jLabel1.setText("  ");
+        jPanelImgInicio.add(jLabel1);
+        jLabel1.setBounds(-15, 5, 570, 498);
+
+        jPanelRegCan.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelRegCan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCancelarRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnCancelarRegCan.setText("Cancelar");
+        btnCancelarRegCan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCancelarRegCanActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 30));
+        jPanelRegCan.add(btnCancelarRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
-        jButton4.setText("Actividades");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnSubirImagen.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnSubirImagen.setText("Subir imagen");
+        btnSubirImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnSubirImagenActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 260, 30));
+        jPanelRegCan.add(btnSubirImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 170, -1));
 
-        jButton5.setText("Veterinario");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        lblRegCan.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        lblRegCan.setText("Registro de nuevo can:");
+        jPanelRegCan.add(lblRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        lblDescripcionRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblDescripcionRegCan.setText("Descripción:");
+        jPanelRegCan.add(lblDescripcionRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        lblNombreRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblNombreRegCan.setText("Nombre:");
+        jPanelRegCan.add(lblNombreRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        lblAlturaRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblAlturaRegCan.setText("Altura: ");
+        jPanelRegCan.add(lblAlturaRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        lblPesoRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblPesoRegCan.setText("Peso:");
+        jPanelRegCan.add(lblPesoRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+
+        lblImgRegCan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelRegCan.add(lblImgRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 170, 160));
+
+        btnConfirmarRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnConfirmarRegCan.setText("Confirmar");
+        btnConfirmarRegCan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnConfirmarRegCanActionPerformed(evt);
             }
         });
-        menuPrincipal.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 260, 30));
+        jPanelRegCan.add(btnConfirmarRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
 
-        jPanelCanes.setLayout(new java.awt.CardLayout());
-        menuPrincipal.add(jPanelCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 570, 500));
+        txtDescripcionRegCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionRegCanActionPerformed(evt);
+            }
+        });
+        jPanelRegCan.add(txtDescripcionRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 320, 80));
+
+        txtPesoRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        txtPesoRegCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesoRegCanActionPerformed(evt);
+            }
+        });
+        jPanelRegCan.add(txtPesoRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 90, 30));
+
+        txtNombreRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        txtNombreRegCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreRegCanActionPerformed(evt);
+            }
+        });
+        jPanelRegCan.add(txtNombreRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 90, 30));
+
+        txtAlturaRegCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        txtAlturaRegCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAlturaRegCanActionPerformed(evt);
+            }
+        });
+        jPanelRegCan.add(txtAlturaRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 90, 30));
+
+        jPanelMisCanes.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelMisCanes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listaMisCanes.setViewportView(jList2);
+
+        jPanelMisCanes.add(listaMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 330, 250));
+
+        btnEliminarCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarCan.setText("Eliminar");
+        btnEliminarCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCanActionPerformed(evt);
+            }
+        });
+        jPanelMisCanes.add(btnEliminarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, -1, -1));
+
+        btnAgregarCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarCan.setText("Agregar");
+        btnAgregarCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCanActionPerformed(evt);
+            }
+        });
+        jPanelMisCanes.add(btnAgregarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, -1, -1));
+
+        lblMisCanes.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        lblMisCanes.setText("Mis canes");
+        jPanelMisCanes.add(lblMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
+
+        javax.swing.GroupLayout jPanelContenidoLayout = new javax.swing.GroupLayout(jPanelContenido);
+        jPanelContenido.setLayout(jPanelContenidoLayout);
+        jPanelContenidoLayout.setHorizontalGroup(
+            jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelRegCan, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanelContenidoLayout.setVerticalGroup(
+            jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelRegCan, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        menuPrincipal.add(jPanelContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 540, 470));
+
+        btnMisCanes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnMisCanes.setText("Mis canes");
+        btnMisCanes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMisCanesActionPerformed(evt);
+            }
+        });
+        menuPrincipal.add(btnMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 260, 30));
+
+        btnActividades1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnActividades1.setText("Actividades");
+        btnActividades1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActividades1ActionPerformed(evt);
+            }
+        });
+        menuPrincipal.add(btnActividades1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 260, 30));
+
+        btnRecordatorios.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnRecordatorios.setText("Recordatorios");
+        btnRecordatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecordatoriosActionPerformed(evt);
+            }
+        });
+        menuPrincipal.add(btnRecordatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 260, 30));
 
         getContentPane().add(menuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 570));
 
@@ -174,27 +355,73 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lbMinimizarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFamiliaActionPerformed
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(true);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnFamiliaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CardLayout cn = (CardLayout) jPanelCanes.getLayout();
-        cn.show(jPanelCanes,"Mis canes");
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAgendaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnEliminarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnEliminarCanActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnAgregarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnAgregarCanActionPerformed
+
+    private void btnMisCanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCanesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMisCanesActionPerformed
+
+    private void btnActividades1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividades1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActividades1ActionPerformed
+
+    private void btnRecordatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatoriosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRecordatoriosActionPerformed
+
+    private void txtDescripcionRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionRegCanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionRegCanActionPerformed
+
+    private void btnConfirmarRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarRegCanActionPerformed
+        String nombre = txtNombreRegCan.getText();
+        String alturaAux = txtAlturaRegCan.getText();
+        float altura = Float.parseFloat(alturaAux);
+        String pesoAux = txtPesoRegCan.getText();
+        float peso = Float.parseFloat(pesoAux);
+        String descripcion = txtDescripcionRegCan.getText();
+    }//GEN-LAST:event_btnConfirmarRegCanActionPerformed
+
+    private void btnSubirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirImagenActionPerformed
+        JFileChooser img = new JFileChooser();
+        img.setDialogTitle("Buscar foto");
+        if(img.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+            File archivo = new File(img.getSelectedFile().toString());
+            rsscalelabel.RSScaleLabel.setScaleLabel(lblImgRegCan, img.getSelectedFile().toString());
+        }
+    }//GEN-LAST:event_btnSubirImagenActionPerformed
+
+    private void btnCancelarRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegCanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarRegCanActionPerformed
+
+    private void txtPesoRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoRegCanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesoRegCanActionPerformed
+
+    private void txtNombreRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRegCanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreRegCanActionPerformed
+
+    private void txtAlturaRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaRegCanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAlturaRegCanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,23 +453,48 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipal().setVisible(true);
+                try {
+                    new VentanaPrincipal().setVisible(true);
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnActividades1;
+    private javax.swing.JButton btnAgenda;
+    private javax.swing.JButton btnAgregarCan;
+    private javax.swing.JButton btnCancelarRegCan;
+    private javax.swing.JButton btnConfirmarRegCan;
+    private javax.swing.JButton btnEliminarCan;
+    private javax.swing.JButton btnFamilia;
+    private javax.swing.JButton btnMisCanes;
+    private javax.swing.JButton btnRecordatorios;
+    private javax.swing.JButton btnSubirImagen;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPabelBarraSuperior;
-    public javax.swing.JPanel jPanelCanes;
     private javax.swing.JPanel jPanelContenido;
+    private javax.swing.JPanel jPanelImgInicio;
+    private javax.swing.JPanel jPanelMisCanes;
+    private javax.swing.JPanel jPanelRegCan;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbMinimizar;
+    private javax.swing.JLabel lblAlturaRegCan;
+    private javax.swing.JLabel lblDescripcionRegCan;
+    private javax.swing.JLabel lblImgRegCan;
+    private javax.swing.JLabel lblMisCanes;
+    private javax.swing.JLabel lblNombreRegCan;
+    private javax.swing.JLabel lblPesoRegCan;
+    private javax.swing.JLabel lblRegCan;
+    private javax.swing.JScrollPane listaMisCanes;
     public static javax.swing.JPanel menuPrincipal;
+    private javax.swing.JTextField txtAlturaRegCan;
+    private javax.swing.JTextField txtDescripcionRegCan;
+    private javax.swing.JTextField txtNombreRegCan;
+    private javax.swing.JTextField txtPesoRegCan;
     // End of variables declaration//GEN-END:variables
 }
