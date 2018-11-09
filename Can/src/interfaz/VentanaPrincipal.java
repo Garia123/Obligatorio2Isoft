@@ -5,11 +5,15 @@
  */
 package interfaz;
 
+import dominio.Perro;
+import dominio.Sistema;
 import java.awt.CardLayout;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -22,16 +26,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private int xx;
     private int xy;
+    Sistema sistema = new Sistema();
 
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
+        
         initComponents();
         jPanelImgInicio.setVisible(true);
         jPanelRegCan.setVisible(false);
         jPanelMisCanes.setVisible(false);
         this.setLocationRelativeTo(this);
+        //jLstJugador1.setListData(sistema.listaJugadores.toArray());
+        listaMisCanes.setListData(sistema.listaDePerros.toArray());
     }
 
     /**
@@ -356,8 +364,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lbMinimizarMouseClicked
 
     private void btnFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFamiliaActionPerformed
-        jPanelImgInicio.setVisible(false);
-        jPanelRegCan.setVisible(true);
+        
         
     }//GEN-LAST:event_btnFamiliaActionPerformed
 
@@ -370,11 +377,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarCanActionPerformed
 
     private void btnAgregarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCanActionPerformed
-        // TODO add your handling code here:
+        jPanelImgInicio.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelRegCan.setVisible(true);
     }//GEN-LAST:event_btnAgregarCanActionPerformed
 
     private void btnMisCanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCanesActionPerformed
-        // TODO add your handling code here:
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(true);
+        String retorno = "";
+       
     }//GEN-LAST:event_btnMisCanesActionPerformed
 
     private void btnActividades1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividades1ActionPerformed
@@ -390,12 +403,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionRegCanActionPerformed
 
     private void btnConfirmarRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarRegCanActionPerformed
+
         String nombre = txtNombreRegCan.getText();
-        String alturaAux = txtAlturaRegCan.getText();
-        float altura = Float.parseFloat(alturaAux);
-        String pesoAux = txtPesoRegCan.getText();
-        float peso = Float.parseFloat(pesoAux);
+        String altura = txtAlturaRegCan.getText();
+        String peso = txtPesoRegCan.getText();
         String descripcion = txtDescripcionRegCan.getText();
+        String vacio = "";
+         if (nombre.equals(vacio) || descripcion.equals(vacio) || altura.equals(vacio) || peso.equals(vacio)){
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
+        } 
+         else {
+            if (sistema.existePerro(nombre, this) && sistema.controlRango(this, peso)&& sistema.controlRango(this,altura) ) {
+                Perro nuevo = new Perro();
+                nuevo.setNombre(nombre);
+                nuevo.setAltura(Float.parseFloat(altura));
+                nuevo.setPeso(Float.parseFloat(peso));
+                nuevo.setComentario(descripcion);
+                sistema.listaDePerros.add(nuevo);
+            }
+        }
+         JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnConfirmarRegCanActionPerformed
 
     private void btnSubirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirImagenActionPerformed
@@ -404,7 +431,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(img.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
             File archivo = new File(img.getSelectedFile().toString());
             rsscalelabel.RSScaleLabel.setScaleLabel(lblImgRegCan, img.getSelectedFile().toString());
-        }
+        }        
     }//GEN-LAST:event_btnSubirImagenActionPerformed
 
     private void btnCancelarRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegCanActionPerformed

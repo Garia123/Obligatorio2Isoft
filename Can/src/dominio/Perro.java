@@ -1,6 +1,8 @@
 package dominio;
 
 import java.util.Objects;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 public class Perro {
     
@@ -9,9 +11,15 @@ public class Perro {
     private float altura;
     private float peso;
     private String comentario;
-    //Atributo de imagen ??
+    private JLabel imagen;
 
     //Gets & Sets
+    public JLabel getImagen(){
+        return imagen;
+    }
+    public void setImagen(JLabel img){
+        this.imagen = img;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -51,11 +59,12 @@ public class Perro {
         this.setComentario(" ");
     }
 
-    public Perro(String nombre, float altura, float peso, String comentario) {
+    public Perro(String nombre, float altura, float peso, String comentario, JLabel img) {
         this.setNombre(nombre);
         this.setAltura(altura);
         this.setPeso(peso);
         this.setComentario(comentario);
+        this.setImagen(img);
     }
 
     @Override
