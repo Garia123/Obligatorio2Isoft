@@ -5,12 +5,22 @@
  */
 package interfaz;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
+import com.toedter.calendar.JDateChooser;
+import dominio.Agenda;
+import dominio.ArchivoGrabacion;
+import dominio.ArchivoLectura;
+import dominio.Familia;
 import dominio.Perro;
 import dominio.Sistema;
 import java.awt.CardLayout;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,28 +28,39 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
+
 /**
  *
  * @author Tomás
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    private javax.swing.JList lista;
     private int xx;
     private int xy;
-    Sistema sistema = new Sistema();
+    Sistema sistema;
 
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(Sistema unSistema) {
         
+        sistema = unSistema;
         initComponents();
         jPanelImgInicio.setVisible(true);
         jPanelRegCan.setVisible(false);
         jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
         this.setLocationRelativeTo(this);
-        //jLstJugador1.setListData(sistema.listaJugadores.toArray());
-        listaMisCanes.setListData(sistema.listaDePerros.toArray());
+        jList2.setListData(sistema.listaDePerros.toArray());
+        jListFamilia.setListData(sistema.listaFamilia.toArray());
+        jListAgenda.setListData(sistema.listaAgenda.toArray());
     }
 
     /**
@@ -76,22 +97,92 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtAlturaRegCan = new javax.swing.JTextField();
         jPanelMisCanes = new javax.swing.JPanel();
         listaMisCanes = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jList2 = new javax.swing.JList();
         btnEliminarCan = new javax.swing.JButton();
-        btnAgregarCan = new javax.swing.JButton();
+        btnMostrarCan = new javax.swing.JButton();
         lblMisCanes = new javax.swing.JLabel();
+        btnAgregarCan = new javax.swing.JButton();
+        jPanelMostrarDatosCan = new javax.swing.JPanel();
+        jImgPerroPerfil = new javax.swing.JLabel();
+        jPesoPerroPerfil = new javax.swing.JLabel();
+        jNombrePerroPerfil = new javax.swing.JLabel();
+        jDescripcionPerroPerfil = new javax.swing.JTextField();
+        jDescPerroPerfil = new javax.swing.JLabel();
+        jAlturaPerroPerfil = new javax.swing.JLabel();
+        jPanelFamilia = new javax.swing.JPanel();
+        jListaFamilia = new javax.swing.JScrollPane();
+        jListFamilia = new javax.swing.JList();
+        btnEliminarFamiliar = new javax.swing.JButton();
+        btnMostrarFamiliar = new javax.swing.JButton();
+        lblMiembrosFamilia = new javax.swing.JLabel();
+        btnAgregarFamiliar = new javax.swing.JButton();
+        jPanelMostrarDatosFamilia = new javax.swing.JPanel();
+        jImgFamiliarPerfil = new javax.swing.JLabel();
+        jEmailFamiliarPerfil = new javax.swing.JLabel();
+        jNombreFamiliarPerfil = new javax.swing.JLabel();
+        jPanelRegFamiliar = new javax.swing.JPanel();
+        btnCancelarRegFamiliar = new javax.swing.JButton();
+        btnSubirImagenFamiliar = new javax.swing.JButton();
+        lblRegCan1 = new javax.swing.JLabel();
+        lblNombreRegCan1 = new javax.swing.JLabel();
+        lblAlturaRegCan1 = new javax.swing.JLabel();
+        lblImgRegCan1 = new javax.swing.JLabel();
+        btnConfirmarRegFamiliar = new javax.swing.JButton();
+        txtNombreRegFamiliar = new javax.swing.JTextField();
+        txtEmailRegFamiliar = new javax.swing.JTextField();
+        jPanelAgenda = new javax.swing.JPanel();
+        jCalendario = new com.toedter.calendar.JCalendar();
+        lblAgenda = new javax.swing.JLabel();
+        btnEliminarEvento = new javax.swing.JButton();
+        btnAgregarEvento = new javax.swing.JButton();
+        btnEliminarEvento1 = new javax.swing.JButton();
+        listaAgenda = new javax.swing.JScrollPane();
+        jListAgenda = new javax.swing.JList();
+        jMostrarEventosAgenda = new javax.swing.JPanel();
+        lblAgenda1 = new javax.swing.JLabel();
+        btnEliminarEvento2 = new javax.swing.JButton();
+        btnAgregarEvento2 = new javax.swing.JButton();
+        btnEliminarEvento3 = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jAgregarEventoTipo = new javax.swing.JPanel();
+        lblTipoDeEvento = new javax.swing.JLabel();
+        btnAgregarAlimentacionEvento = new javax.swing.JButton();
+        btnAgregarActividadEvento = new javax.swing.JButton();
+        btnAgregarVeterinariaEvento = new javax.swing.JButton();
+        jAgregarVeterinariaEvento = new javax.swing.JPanel();
+        btnOtrosVeterinaria = new javax.swing.JRadioButton();
+        btnConsultaEsteticaVeterinaria = new javax.swing.JRadioButton();
+        btnConsultaMedicaVeterinaria = new javax.swing.JRadioButton();
+        lblVeterinaria = new javax.swing.JLabel();
+        btnCompraVeterinaria = new javax.swing.JRadioButton();
+        txtComentarioVeterinaria = new javax.swing.JTextField();
+        lblFechaVeterinaria = new javax.swing.JLabel();
+        txtFechaVeterinaria = new com.toedter.calendar.JDateChooser();
+        lblComentarioVeterinaria = new javax.swing.JLabel();
+        btnCancelarEventoVeterinaria = new javax.swing.JButton();
+        btnConfirmarEventoVeterinaria = new javax.swing.JButton();
         btnMisCanes = new javax.swing.JButton();
         btnActividades1 = new javax.swing.JButton();
         btnRecordatorios = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(900, 600));
-        setMinimumSize(new java.awt.Dimension(900, 600));
-        setPreferredSize(new java.awt.Dimension(900, 600));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(860, 540));
+        setMinimumSize(new java.awt.Dimension(860, 540));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(860, 540));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menuPrincipal.setBackground(new java.awt.Color(217, 201, 201));
+        menuPrincipal.setMaximumSize(new java.awt.Dimension(860, 540));
         menuPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPabelBarraSuperior.setBackground(new java.awt.Color(0, 0, 0));
@@ -157,12 +248,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelContenido.setBackground(new java.awt.Color(217, 201, 201));
 
         jPanelImgInicio.setBackground(new java.awt.Color(217, 201, 201));
-        jPanelImgInicio.setLayout(null);
+        jPanelImgInicio.setLayout(new javax.swing.BoxLayout(jPanelImgInicio, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenPrincipal.jpg"))); // NOI18N
         jLabel1.setText("  ");
         jPanelImgInicio.add(jLabel1);
-        jLabel1.setBounds(-15, 5, 570, 498);
 
         jPanelRegCan.setBackground(new java.awt.Color(217, 201, 201));
         jPanelRegCan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -251,14 +341,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelMisCanes.setBackground(new java.awt.Color(217, 201, 201));
         jPanelMisCanes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         listaMisCanes.setViewportView(jList2);
 
-        jPanelMisCanes.add(listaMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 330, 250));
+        jPanelMisCanes.add(listaMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 330, 250));
 
         btnEliminarCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnEliminarCan.setText("Eliminar");
@@ -267,20 +352,329 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnEliminarCanActionPerformed(evt);
             }
         });
-        jPanelMisCanes.add(btnEliminarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, -1, -1));
+        jPanelMisCanes.add(btnEliminarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, 40));
+
+        btnMostrarCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnMostrarCan.setText("Mostrar datos");
+        btnMostrarCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarCanActionPerformed(evt);
+            }
+        });
+        jPanelMisCanes.add(btnMostrarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 160, 40));
+
+        lblMisCanes.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        lblMisCanes.setText("Mis canes");
+        jPanelMisCanes.add(lblMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
 
         btnAgregarCan.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnAgregarCan.setText("Agregar");
+        btnAgregarCan.setText("Agregar can");
         btnAgregarCan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarCanActionPerformed(evt);
             }
         });
-        jPanelMisCanes.add(btnAgregarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, -1, -1));
+        jPanelMisCanes.add(btnAgregarCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, 40));
 
-        lblMisCanes.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
-        lblMisCanes.setText("Mis canes");
-        jPanelMisCanes.add(lblMisCanes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
+        jPanelMostrarDatosCan.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelMostrarDatosCan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jImgPerroPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelMostrarDatosCan.add(jImgPerroPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 150, 140));
+
+        jPesoPerroPerfil.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jPesoPerroPerfil.setText("Peso:");
+        jPanelMostrarDatosCan.add(jPesoPerroPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
+
+        jNombrePerroPerfil.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jNombrePerroPerfil.setText("Nombre:");
+        jPanelMostrarDatosCan.add(jNombrePerroPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        jPanelMostrarDatosCan.add(jDescripcionPerroPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 340, 130));
+
+        jDescPerroPerfil.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jDescPerroPerfil.setText("Descripcion:");
+        jPanelMostrarDatosCan.add(jDescPerroPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        jAlturaPerroPerfil.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jAlturaPerroPerfil.setText("Altura:");
+        jPanelMostrarDatosCan.add(jAlturaPerroPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
+
+        jPanelFamilia.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelFamilia.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jListaFamilia.setViewportView(jListFamilia);
+
+        jPanelFamilia.add(jListaFamilia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 330, 250));
+
+        btnEliminarFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarFamiliar.setText("Eliminar");
+        btnEliminarFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelFamilia.add(btnEliminarFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, 40));
+
+        btnMostrarFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnMostrarFamiliar.setText("Mostrar datos");
+        btnMostrarFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelFamilia.add(btnMostrarFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 160, 40));
+
+        lblMiembrosFamilia.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        lblMiembrosFamilia.setText("Miembros de la familia:");
+        jPanelFamilia.add(lblMiembrosFamilia, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        btnAgregarFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarFamiliar.setText("Agregar");
+        btnAgregarFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelFamilia.add(btnAgregarFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, 40));
+
+        jPanelMostrarDatosFamilia.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelMostrarDatosFamilia.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jImgFamiliarPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelMostrarDatosFamilia.add(jImgFamiliarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 150, 140));
+
+        jEmailFamiliarPerfil.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jEmailFamiliarPerfil.setText("Email:");
+        jPanelMostrarDatosFamilia.add(jEmailFamiliarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, -1, -1));
+
+        jNombreFamiliarPerfil.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jNombreFamiliarPerfil.setText("Nombre:");
+        jPanelMostrarDatosFamilia.add(jNombreFamiliarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+
+        jPanelRegFamiliar.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelRegFamiliar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCancelarRegFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnCancelarRegFamiliar.setText("Cancelar");
+        btnCancelarRegFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRegFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelRegFamiliar.add(btnCancelarRegFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
+
+        btnSubirImagenFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnSubirImagenFamiliar.setText("Subir imagen");
+        btnSubirImagenFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirImagenFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelRegFamiliar.add(btnSubirImagenFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 170, -1));
+
+        lblRegCan1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        lblRegCan1.setText("Registro familiar");
+        jPanelRegFamiliar.add(lblRegCan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        lblNombreRegCan1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblNombreRegCan1.setText("Nombre:");
+        jPanelRegFamiliar.add(lblNombreRegCan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        lblAlturaRegCan1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblAlturaRegCan1.setText("Email");
+        jPanelRegFamiliar.add(lblAlturaRegCan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        lblImgRegCan1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelRegFamiliar.add(lblImgRegCan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 170, 160));
+
+        btnConfirmarRegFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnConfirmarRegFamiliar.setText("Confirmar");
+        btnConfirmarRegFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarRegFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelRegFamiliar.add(btnConfirmarRegFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+
+        txtNombreRegFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        txtNombreRegFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreRegFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelRegFamiliar.add(txtNombreRegFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 230, 30));
+
+        txtEmailRegFamiliar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        txtEmailRegFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailRegFamiliarActionPerformed(evt);
+            }
+        });
+        jPanelRegFamiliar.add(txtEmailRegFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 250, 30));
+
+        jPanelAgenda.setBackground(new java.awt.Color(217, 201, 201));
+        jPanelAgenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jCalendario.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jCalendarioAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jPanelAgenda.add(jCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 290, 160));
+
+        lblAgenda.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        lblAgenda.setText("Agenda:");
+        jPanelAgenda.add(lblAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
+
+        btnEliminarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarEvento.setText("Detalle de evento");
+        btnEliminarEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEventoActionPerformed(evt);
+            }
+        });
+        jPanelAgenda.add(btnEliminarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 200, -1));
+
+        btnAgregarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarEvento.setText("Agregar evento");
+        btnAgregarEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEventoActionPerformed(evt);
+            }
+        });
+        jPanelAgenda.add(btnAgregarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 200, -1));
+
+        btnEliminarEvento1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarEvento1.setText("Eliminar evento");
+        btnEliminarEvento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEvento1ActionPerformed(evt);
+            }
+        });
+        jPanelAgenda.add(btnEliminarEvento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 200, -1));
+
+        listaAgenda.setViewportView(jListAgenda);
+
+        jPanelAgenda.add(listaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 120));
+
+        jMostrarEventosAgenda.setBackground(new java.awt.Color(217, 201, 201));
+        jMostrarEventosAgenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblAgenda1.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        lblAgenda1.setText("Agenda:");
+        jMostrarEventosAgenda.add(lblAgenda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
+
+        btnEliminarEvento2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarEvento2.setText("Detalle de evento");
+        btnEliminarEvento2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEvento2ActionPerformed(evt);
+            }
+        });
+        jMostrarEventosAgenda.add(btnEliminarEvento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 200, -1));
+
+        btnAgregarEvento2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarEvento2.setText("Agregar evento");
+        btnAgregarEvento2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEvento2ActionPerformed(evt);
+            }
+        });
+        jMostrarEventosAgenda.add(btnAgregarEvento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 200, -1));
+
+        btnEliminarEvento3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarEvento3.setText("Eliminar evento");
+        btnEliminarEvento3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEvento3ActionPerformed(evt);
+            }
+        });
+        jMostrarEventosAgenda.add(btnEliminarEvento3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 200, -1));
+        jMostrarEventosAgenda.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 190, 30));
+
+        jAgregarEventoTipo.setBackground(new java.awt.Color(217, 201, 201));
+        jAgregarEventoTipo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTipoDeEvento.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        lblTipoDeEvento.setText("Seleccione tipo de evento:");
+        jAgregarEventoTipo.add(lblTipoDeEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
+
+        btnAgregarAlimentacionEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarAlimentacionEvento.setText("Alimentación");
+        btnAgregarAlimentacionEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAlimentacionEventoActionPerformed(evt);
+            }
+        });
+        jAgregarEventoTipo.add(btnAgregarAlimentacionEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 230, 50));
+
+        btnAgregarActividadEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarActividadEvento.setText("Actividad");
+        btnAgregarActividadEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActividadEventoActionPerformed(evt);
+            }
+        });
+        jAgregarEventoTipo.add(btnAgregarActividadEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 230, 50));
+
+        btnAgregarVeterinariaEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnAgregarVeterinariaEvento.setText("Veterinaria");
+        btnAgregarVeterinariaEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarVeterinariaEventoActionPerformed(evt);
+            }
+        });
+        jAgregarEventoTipo.add(btnAgregarVeterinariaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 230, 50));
+
+        jAgregarVeterinariaEvento.setBackground(new java.awt.Color(217, 201, 201));
+        jAgregarVeterinariaEvento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnOtrosVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnOtrosVeterinaria.setText("Otros");
+        jAgregarVeterinariaEvento.add(btnOtrosVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 210, -1));
+
+        btnConsultaEsteticaVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnConsultaEsteticaVeterinaria.setText("Consulta estética");
+        jAgregarVeterinariaEvento.add(btnConsultaEsteticaVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 210, -1));
+
+        btnConsultaMedicaVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        btnConsultaMedicaVeterinaria.setText("Consulta médica");
+        jAgregarVeterinariaEvento.add(btnConsultaMedicaVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
+
+        lblVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        lblVeterinaria.setText("Veterinaria:");
+        jAgregarVeterinariaEvento.add(lblVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
+
+        btnCompraVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnCompraVeterinaria.setText("Compra de artículos varios");
+        jAgregarVeterinariaEvento.add(btnCompraVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        jAgregarVeterinariaEvento.add(txtComentarioVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 280, 100));
+
+        lblFechaVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblFechaVeterinaria.setText("Fecha:");
+        jAgregarVeterinariaEvento.add(lblFechaVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
+        jAgregarVeterinariaEvento.add(txtFechaVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 160, 30));
+
+        lblComentarioVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblComentarioVeterinaria.setText("Comentario:");
+        jAgregarVeterinariaEvento.add(lblComentarioVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        btnCancelarEventoVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnCancelarEventoVeterinaria.setText("Cancelar");
+        jAgregarVeterinariaEvento.add(btnCancelarEventoVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 120, -1));
+
+        btnConfirmarEventoVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnConfirmarEventoVeterinaria.setText("Confirmar");
+        btnConfirmarEventoVeterinaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEventoVeterinariaActionPerformed(evt);
+            }
+        });
+        jAgregarVeterinariaEvento.add(btnConfirmarEventoVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
 
         javax.swing.GroupLayout jPanelContenidoLayout = new javax.swing.GroupLayout(jPanelContenido);
         jPanelContenido.setLayout(jPanelContenidoLayout);
@@ -289,9 +683,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanelRegCan, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContenidoLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelMostrarDatosCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(21, Short.MAX_VALUE)
+                    .addComponent(jPanelMostrarDatosFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(134, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelRegFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(78, Short.MAX_VALUE)
+                    .addComponent(jPanelAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(48, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jMostrarEventosAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(135, Short.MAX_VALUE)
+                    .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(2, 2, 2)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jAgregarVeterinariaEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanelContenidoLayout.setVerticalGroup(
@@ -299,13 +733,53 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanelRegCan, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(60, Short.MAX_VALUE)
+                    .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContenidoLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelMostrarDatosCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(145, Short.MAX_VALUE)
+                    .addComponent(jPanelMostrarDatosFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelRegFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(53, Short.MAX_VALUE)
+                    .addComponent(jPanelAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(29, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jMostrarEventosAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
+                    .addContainerGap(140, Short.MAX_VALUE)
+                    .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(30, 30, 30)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jAgregarVeterinariaEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        menuPrincipal.add(jPanelContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 540, 470));
+        menuPrincipal.add(jPanelContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 540, 470));
 
         btnMisCanes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnMisCanes.setText("Mis canes");
@@ -340,7 +814,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarMouseClicked
-        setExtendedState(VentanaPrincipal.CROSSHAIR_CURSOR);
+        ArchivoGrabacion out = new ArchivoGrabacion("Can.txt", this);
+        for (int i = 0; i < sistema.listaDePerros.size(); i++) {
+             out.grabarLinea(sistema.listaDePerros.get(i).getNombre() + "@" + sistema.listaDePerros.get(i).getAltura()+ "@"
+             + sistema.listaDePerros.get(i).getPeso() + "@" + sistema.listaDePerros.get(i).getComentario()+ "@" 
+             + "", this);
+        }
+        out.grabarLinea("@", this);
+       /* for (int i = 0; i < sistema.listaFamilia.size(); i++) {
+           // String aux = sistema.listaFamilia.get(i);
+            out.grabarLinea(aux, this);
+        }*/
+        out.cerrar();
+        this.dispose();
     }//GEN-LAST:event_lbCerrarMouseClicked
 
     private void jPabelBarraSuperiorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPabelBarraSuperiorMouseDragged
@@ -360,31 +846,77 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPabelBarraSuperiorMouseReleased
 
     private void lbMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMinimizarMouseClicked
-        // TODO add your handling code here:
+        this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_lbMinimizarMouseClicked
 
     private void btnFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFamiliaActionPerformed
-        
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(true);
+        jPanelRegFamiliar.setVisible(false);
         
     }//GEN-LAST:event_btnFamiliaActionPerformed
 
     private void btnAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendaActionPerformed
-        // TODO add your handling code here:
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(true);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
     }//GEN-LAST:event_btnAgendaActionPerformed
 
     private void btnEliminarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCanActionPerformed
-        // TODO add your handling code here:
+        if (!jList2.isSelectionEmpty()) {
+            for (int i = 0; i < sistema.listaDePerros.size(); i++) {
+                if (jList2.getSelectedIndex() == i) {
+                    sistema.listaDePerros.remove(i);
+                }
+            }
+            jList2.setListData(sistema.listaDePerros.toArray());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun can", "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarCanActionPerformed
 
-    private void btnAgregarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCanActionPerformed
+    private void btnMostrarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarCanActionPerformed
         jPanelImgInicio.setVisible(false);
         jPanelMisCanes.setVisible(false);
-        jPanelRegCan.setVisible(true);
-    }//GEN-LAST:event_btnAgregarCanActionPerformed
+        jPanelRegCan.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(true);
+        
+        String nombre;
+        String altura;
+        String peso;
+        String descripcion;
+        int i = 0;
+        if (!jList2.isSelectionEmpty()) {
+            int pos = jList2.getSelectedIndex();
+            nombre = "Nombre: " + sistema.listaDePerros.get(pos).getNombre();
+            jNombrePerroPerfil.setText(nombre);
+            altura = "Altura: " + sistema.listaDePerros.get(pos).getAltura();
+            jAlturaPerroPerfil.setText(altura);
+            peso = "Peso: " + sistema.listaDePerros.get(pos).getPeso();
+            jPesoPerroPerfil.setText(peso);
+            descripcion = sistema.listaDePerros.get(pos).getComentario();
+            jDescripcionPerroPerfil.setText(descripcion);
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnMostrarCanActionPerformed
 
     private void btnMisCanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCanesActionPerformed
         jPanelImgInicio.setVisible(false);
         jPanelRegCan.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
         jPanelMisCanes.setVisible(true);
         String retorno = "";
        
@@ -409,20 +941,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String peso = txtPesoRegCan.getText();
         String descripcion = txtDescripcionRegCan.getText();
         String vacio = "";
-         if (nombre.equals(vacio) || descripcion.equals(vacio) || altura.equals(vacio) || peso.equals(vacio)){
+        if (nombre.equals(vacio) || descripcion.equals(vacio) || altura.equals(vacio) || peso.equals(vacio)){
             JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
         } 
-         else {
-            if (sistema.existePerro(nombre, this) && sistema.controlRango(this, peso)&& sistema.controlRango(this,altura) ) {
+        else {
+            if (sistema.existePerro(nombre, this) && 
+                sistema.controlRango(this,altura, "Se debe ingresar una altura valida (1-50).", "Se deben ingresar la altura en caracteres númericos.") && 
+                sistema.controlRango(this, peso, "Se debe ingresar un peso valido (1-50).", "Se deben ingresar el peso en caracteres númericos.")) {
                 Perro nuevo = new Perro();
                 nuevo.setNombre(nombre);
                 nuevo.setAltura(Float.parseFloat(altura));
                 nuevo.setPeso(Float.parseFloat(peso));
                 nuevo.setComentario(descripcion);
+                nuevo.setImagen(lblImgRegCan);
                 sistema.listaDePerros.add(nuevo);
+                JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
+                jList2.setListData(sistema.listaDePerros.toArray());
+                txtNombreRegCan.setText("");
+                txtAlturaRegCan.setText("");
+                txtPesoRegCan.setText("");
+                txtDescripcionRegCan.setText("");
+                //lblImgRegCan.setIcon(null);
+                jPanelRegCan.setVisible(false);
+                jPanelMisCanes.setVisible(true);
             }
-        }
-         JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
+            
+        }    
     }//GEN-LAST:event_btnConfirmarRegCanActionPerformed
 
     private void btnSubirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirImagenActionPerformed
@@ -431,11 +975,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(img.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
             File archivo = new File(img.getSelectedFile().toString());
             rsscalelabel.RSScaleLabel.setScaleLabel(lblImgRegCan, img.getSelectedFile().toString());
-        }        
+        }    
     }//GEN-LAST:event_btnSubirImagenActionPerformed
 
     private void btnCancelarRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegCanActionPerformed
-        // TODO add your handling code here:
+        txtNombreRegCan.setText("");
+        txtAlturaRegCan.setText("");
+        txtPesoRegCan.setText("");
+        txtDescripcionRegCan.setText("");
+        lblImgRegCan.setIcon(null);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(true);
     }//GEN-LAST:event_btnCancelarRegCanActionPerformed
 
     private void txtPesoRegCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoRegCanActionPerformed
@@ -450,78 +1000,359 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAlturaRegCanActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+    }//GEN-LAST:event_formWindowClosing
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new VentanaPrincipal().setVisible(true);
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ArchivoLectura in = new ArchivoLectura("Can.txt", this);
+        boolean familia = false;
+            
+        while (in.hayMasLineas()) {
+            String[] datos = in.linea().split("@");
+            if (datos.length == 1 && !familia) {
+                familia = true;
+            }
+            if (datos.length > 1 && !familia) {
+                sistema.listaDePerros.add(new Perro(datos[0], Float.parseFloat(datos[1]), Float.parseFloat(datos[2]), datos[3], new JLabel()/*datos[4]*/));
+            } else if (datos.length > 1 && familia) {
+               // sistema.listaFamilia.add(datos[0]);
+            }
+        }
+        in.cerrar();
+        jList2.setListData(sistema.listaDePerros.toArray());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnAgregarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCanActionPerformed
+        jPanelImgInicio.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelRegCan.setVisible(true);
+        //jPanelRegFamiliar.setVisible(true);
+           }//GEN-LAST:event_btnAgregarCanActionPerformed
+
+    private void btnEliminarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFamiliarActionPerformed
+          if (!jListFamilia.isSelectionEmpty()) {
+            for (int i = 0; i < sistema.listaFamilia.size(); i++) {
+                if (jListFamilia.getSelectedIndex() == i) {
+                    sistema.listaFamilia.remove(i);
                 }
             }
-        });
-    }
+            jListFamilia.setListData(sistema.listaFamilia.toArray());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun can", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarFamiliarActionPerformed
+
+    private void btnMostrarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarFamiliarActionPerformed
+       jPanelImgInicio.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(true);
+        
+        String nombre;
+        String email;
+        int i = 0;
+        if (!jListFamilia.isSelectionEmpty()) {
+            int pos = jListFamilia.getSelectedIndex();
+            nombre = "Nombre: " + sistema.listaFamilia.get(pos).getNombreFamiliar();
+            jNombreFamiliarPerfil.setText(nombre);
+            email = "Email: " + sistema.listaFamilia.get(pos).getEmailFamiliar();
+            
+        }
+    }//GEN-LAST:event_btnMostrarFamiliarActionPerformed
+
+    private void btnAgregarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFamiliarActionPerformed
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(true);
+    }//GEN-LAST:event_btnAgregarFamiliarActionPerformed
+
+    private void btnCancelarRegFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegFamiliarActionPerformed
+        txtNombreRegFamiliar.setText("");
+        txtEmailRegFamiliar.setText("");
+        jPanelRegFamiliar.setVisible(false);
+        jPanelFamilia.setVisible(true);
+    }//GEN-LAST:event_btnCancelarRegFamiliarActionPerformed
+
+    private void btnSubirImagenFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirImagenFamiliarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSubirImagenFamiliarActionPerformed
+
+    private void btnConfirmarRegFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarRegFamiliarActionPerformed
+        String nombreFamiliar = txtNombreRegFamiliar.getText();
+        String emailFamiliar = txtEmailRegFamiliar.getText();
+        String vacio = "";
+        if (nombreFamiliar.equals(vacio) || emailFamiliar.equals(vacio)){
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
+        } 
+        else {
+            if (sistema.existeFamiliar(nombreFamiliar, this)) {
+                Familia nuevo = new Familia();
+                nuevo.setNombreFamiliar(nombreFamiliar);
+                nuevo.setEmailFamiliar(emailFamiliar);
+                sistema.listaFamilia.add(nuevo);
+                JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
+                jListFamilia.setListData(sistema.listaFamilia.toArray());
+                txtNombreRegFamiliar.setText("");
+                txtEmailRegFamiliar.setText("");
+                //lblImgRegCan.setIcon(null);
+                jPanelRegFamiliar.setVisible(false);
+                jPanelFamilia.setVisible(true);
+            }
+            
+        }    
+    }//GEN-LAST:event_btnConfirmarRegFamiliarActionPerformed
+
+    private void txtNombreRegFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRegFamiliarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreRegFamiliarActionPerformed
+
+    private void txtEmailRegFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailRegFamiliarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailRegFamiliarActionPerformed
+
+    private void jCalendarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jCalendarioAncestorAdded
+
+        String dia = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.DAY_OF_MONTH));
+        String mes = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.MONTH)+1);
+        String ano = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.YEAR));
+        String fecha = dia+"/"+mes+"/"+ano;
+        
+        for (int i = 0; i < sistema.listaAgenda.size(); i++) {
+            if(sistema.listaAgenda.get(i).getFecha().equals(fecha)){
+                Agenda agenda = sistema.listaAgenda.get(i);
+                String evento = sistema.listaAgenda.get(i).getEvento();
+                jListAgenda.setListData(sistema.listaAgenda.toArray());
+            }
+        }
+        
+        
+        
+    }//GEN-LAST:event_jCalendarioAncestorAdded
+
+    private void btnEliminarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEventoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarEventoActionPerformed
+
+    private void btnEliminarEvento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEvento1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarEvento1ActionPerformed
+
+    private void btnAgregarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEventoActionPerformed
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarEventoTipo.setVisible(true);
+    }//GEN-LAST:event_btnAgregarEventoActionPerformed
+
+    private void btnEliminarEvento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEvento2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarEvento2ActionPerformed
+
+    private void btnAgregarEvento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEvento2ActionPerformed
+       
+    }//GEN-LAST:event_btnAgregarEvento2ActionPerformed
+
+    private void btnEliminarEvento3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEvento3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarEvento3ActionPerformed
+
+    private void btnAgregarAlimentacionEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlimentacionEventoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarAlimentacionEventoActionPerformed
+
+    private void btnAgregarActividadEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadEventoActionPerformed
+        jPanelContenido.setVisible(false);
+        jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(false);
+    }//GEN-LAST:event_btnAgregarActividadEventoActionPerformed
+
+    private void btnAgregarVeterinariaEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVeterinariaEventoActionPerformed
+          jPanelImgInicio.setVisible(false);
+        jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(true);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
+        
+    }//GEN-LAST:event_btnAgregarVeterinariaEventoActionPerformed
+
+    private void btnConfirmarEventoVeterinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEventoVeterinariaActionPerformed
+        String evento = "Veterinaria" ;
+        String dia = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.DAY_OF_MONTH));
+        String mes = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.MONTH)+1);
+        String ano = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.YEAR));
+        String fecha = (dia+"/"+mes+"/"+ano);
+        String descripcion = txtComentarioVeterinaria.getText();
+        String vacio = "";
+        if (evento.equals(vacio) || !btnOtrosVeterinaria.isSelected() || !btnCompraVeterinaria.isSelected() ||
+            !btnConsultaEsteticaVeterinaria.isSelected()|| !btnConsultaMedicaVeterinaria.isSelected()){
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
+        } 
+        else {
+            Agenda nuevo = new Agenda();
+            nuevo.setEvento(evento);
+            nuevo.setDescripcion(descripcion);
+            nuevo.setFecha(fecha);
+            
+            JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
+           if (btnOtrosVeterinaria.isSelected()){
+               btnConsultaEsteticaVeterinaria.setVisible(false);
+               btnConsultaMedicaVeterinaria.setVisible(false);
+               btnCompraVeterinaria.setVisible(false);
+               String tipoEvento1 = "Otros";
+               nuevo.setTipoEvento(tipoEvento1);
+           }
+           else if(btnCompraVeterinaria.isSelected()){
+               btnConsultaEsteticaVeterinaria.setVisible(false);
+               btnConsultaMedicaVeterinaria.setVisible(false);
+               btnOtrosVeterinaria.setVisible(false);
+               String tipoEvento2 = "Compra de articulo";
+               nuevo.setTipoEvento(tipoEvento2);
+           }
+           else if(btnConsultaMedicaVeterinaria.isSelected()){
+               btnConsultaEsteticaVeterinaria.setVisible(false);
+               btnCompraVeterinaria.setVisible(false);
+               btnOtrosVeterinaria.setVisible(false);
+               String tipoEvento3 = "Consulta medica";
+               nuevo.setTipoEvento(tipoEvento3);
+           }
+           else if(btnConsultaEsteticaVeterinaria.isSelected()){
+               btnConsultaMedicaVeterinaria.setVisible(false);
+               btnCompraVeterinaria.setVisible(false);
+               btnOtrosVeterinaria.setVisible(false);
+               String tipoEvento4 = "Consulta estetica";
+               nuevo.setTipoEvento(tipoEvento4);
+           }
+            sistema.listaAgenda.add(nuevo);
+            jMostrarEventosAgenda.setVisible(true);
+            jAgregarVeterinariaEvento.setVisible(false); 
+        }    
+    }//GEN-LAST:event_btnConfirmarEventoVeterinariaActionPerformed
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActividades1;
     private javax.swing.JButton btnAgenda;
+    private javax.swing.JButton btnAgregarActividadEvento;
+    private javax.swing.JButton btnAgregarAlimentacionEvento;
     private javax.swing.JButton btnAgregarCan;
+    private javax.swing.JButton btnAgregarEvento;
+    private javax.swing.JButton btnAgregarEvento2;
+    private javax.swing.JButton btnAgregarFamiliar;
+    private javax.swing.JButton btnAgregarVeterinariaEvento;
+    private javax.swing.JButton btnCancelarEventoVeterinaria;
     private javax.swing.JButton btnCancelarRegCan;
+    private javax.swing.JButton btnCancelarRegFamiliar;
+    private javax.swing.JRadioButton btnCompraVeterinaria;
+    private javax.swing.JButton btnConfirmarEventoVeterinaria;
     private javax.swing.JButton btnConfirmarRegCan;
+    private javax.swing.JButton btnConfirmarRegFamiliar;
+    private javax.swing.JRadioButton btnConsultaEsteticaVeterinaria;
+    private javax.swing.JRadioButton btnConsultaMedicaVeterinaria;
     private javax.swing.JButton btnEliminarCan;
+    private javax.swing.JButton btnEliminarEvento;
+    private javax.swing.JButton btnEliminarEvento1;
+    private javax.swing.JButton btnEliminarEvento2;
+    private javax.swing.JButton btnEliminarEvento3;
+    private javax.swing.JButton btnEliminarFamiliar;
     private javax.swing.JButton btnFamilia;
     private javax.swing.JButton btnMisCanes;
+    private javax.swing.JButton btnMostrarCan;
+    private javax.swing.JButton btnMostrarFamiliar;
+    private javax.swing.JRadioButton btnOtrosVeterinaria;
     private javax.swing.JButton btnRecordatorios;
     private javax.swing.JButton btnSubirImagen;
+    private javax.swing.JButton btnSubirImagenFamiliar;
+    private javax.swing.JPanel jAgregarEventoTipo;
+    private javax.swing.JPanel jAgregarVeterinariaEvento;
+    private javax.swing.JLabel jAlturaPerroPerfil;
+    private com.toedter.calendar.JCalendar jCalendario;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jDescPerroPerfil;
+    private javax.swing.JTextField jDescripcionPerroPerfil;
+    private javax.swing.JLabel jEmailFamiliarPerfil;
+    private javax.swing.JLabel jImgFamiliarPerfil;
+    private javax.swing.JLabel jImgPerroPerfil;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList jList2;
+    private javax.swing.JList jListAgenda;
+    private javax.swing.JList jListFamilia;
+    private javax.swing.JScrollPane jListaFamilia;
+    private javax.swing.JPanel jMostrarEventosAgenda;
+    private javax.swing.JLabel jNombreFamiliarPerfil;
+    private javax.swing.JLabel jNombrePerroPerfil;
     private javax.swing.JPanel jPabelBarraSuperior;
+    private javax.swing.JPanel jPanelAgenda;
     private javax.swing.JPanel jPanelContenido;
+    private javax.swing.JPanel jPanelFamilia;
     private javax.swing.JPanel jPanelImgInicio;
     private javax.swing.JPanel jPanelMisCanes;
+    private javax.swing.JPanel jPanelMostrarDatosCan;
+    private javax.swing.JPanel jPanelMostrarDatosFamilia;
     private javax.swing.JPanel jPanelRegCan;
+    private javax.swing.JPanel jPanelRegFamiliar;
+    private javax.swing.JLabel jPesoPerroPerfil;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbMinimizar;
+    private javax.swing.JLabel lblAgenda;
+    private javax.swing.JLabel lblAgenda1;
     private javax.swing.JLabel lblAlturaRegCan;
+    private javax.swing.JLabel lblAlturaRegCan1;
+    private javax.swing.JLabel lblComentarioVeterinaria;
     private javax.swing.JLabel lblDescripcionRegCan;
+    private javax.swing.JLabel lblFechaVeterinaria;
     private javax.swing.JLabel lblImgRegCan;
+    private javax.swing.JLabel lblImgRegCan1;
+    private javax.swing.JLabel lblMiembrosFamilia;
     private javax.swing.JLabel lblMisCanes;
     private javax.swing.JLabel lblNombreRegCan;
+    private javax.swing.JLabel lblNombreRegCan1;
     private javax.swing.JLabel lblPesoRegCan;
     private javax.swing.JLabel lblRegCan;
+    private javax.swing.JLabel lblRegCan1;
+    private javax.swing.JLabel lblTipoDeEvento;
+    private javax.swing.JLabel lblVeterinaria;
+    private javax.swing.JScrollPane listaAgenda;
     private javax.swing.JScrollPane listaMisCanes;
     public static javax.swing.JPanel menuPrincipal;
     private javax.swing.JTextField txtAlturaRegCan;
+    private javax.swing.JTextField txtComentarioVeterinaria;
     private javax.swing.JTextField txtDescripcionRegCan;
+    private javax.swing.JTextField txtEmailRegFamiliar;
+    private com.toedter.calendar.JDateChooser txtFechaVeterinaria;
     private javax.swing.JTextField txtNombreRegCan;
+    private javax.swing.JTextField txtNombreRegFamiliar;
     private javax.swing.JTextField txtPesoRegCan;
     // End of variables declaration//GEN-END:variables
 }

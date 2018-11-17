@@ -76,8 +76,14 @@ public class Perro {
     //Criterio de comparacion a definir
     @Override
     public boolean equals(Object obj) {
-        return true;
+        return this.getNombre().equalsIgnoreCase(((Perro)obj).getNombre());
     }
+
+    @Override
+    public String toString() {
+        return this.getNombre();
+    }
+    
     
     
 }

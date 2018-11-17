@@ -17,13 +17,22 @@ import javax.swing.JOptionPane;
  */
 public class Sistema {
     public ArrayList<Perro> listaDePerros;
-
+    public ArrayList<Familia> listaFamilia;
+    public ArrayList<Agenda> listaAgenda;
 
     public Sistema(){
         listaDePerros = new ArrayList<>();
+        listaFamilia = new ArrayList<>();
+        listaAgenda = new ArrayList<>();
+    }
+    public void agregarSgenda(Agenda unaAgenda){
+        this.listaAgenda.add(unaAgenda);
     }
     public void agregarPerro(Perro unPerro){
         this.listaDePerros.add(unPerro);
+    }
+    public void agregarFamiliar(Familia unFamiliar){
+        this.listaFamilia.add(unFamiliar);
     }
      public boolean existePerro(String unTexto, JFrame VentanaPrincipal){ 
         boolean perroDisponible = false; 
@@ -38,8 +47,19 @@ public class Sistema {
         } 
         return perroDisponible; 
     }
-     
-    public boolean controlRango(JFrame VentanaPrincipal, String num) {
+     public boolean existeFamiliar(String unTexto, JFrame VentanaPrincipal){
+         boolean familiarDisponible = false;
+         Familia familiar = new Familia();
+         familiar.setNombreFamiliar(unTexto);
+         int pos = listaFamilia.indexOf(familiar);
+         if(pos == -1){
+             familiarDisponible = true;
+         }else{
+             JOptionPane.showMessageDialog(VentanaPrincipal,"Ya existe el familiar ingresado","Error",JOptionPane.ERROR_MESSAGE);
+         }
+         return familiarDisponible;
+     }
+    public boolean controlRango(JFrame VentanaPrincipal, String num, String msjRango, String msjCaracter) {
        float valor = -1;
        boolean Ok = false;
        try {
@@ -48,18 +68,22 @@ public class Sistema {
                Ok = true;
            } 
            else {
-              JOptionPane.showMessageDialog(VentanaPrincipal, "La edad ingresada no es valida.", "ERROR", JOptionPane.WARNING_MESSAGE);
+              JOptionPane.showMessageDialog(VentanaPrincipal, msjRango, "ERROR", JOptionPane.WARNING_MESSAGE);
               valor = -1;
            }
         } 
        catch (Exception e) {
-           JOptionPane.showMessageDialog(VentanaPrincipal, "Debe ingresar la edad solo con caracteres numéricos.", "ERROR", JOptionPane.WARNING_MESSAGE);
+           JOptionPane.showMessageDialog(VentanaPrincipal, msjCaracter, "ERROR", JOptionPane.WARNING_MESSAGE);
         }
        return Ok;
     }
-    
-
-  
-
-   
+    public Perro darPerro(String nombre){
+        Perro p = new Perro();
+        p.setNombre(nombre);
+        if(this.listaDePerros.contains(p)){
+            p = listaDePerros.get(listaDePerros.indexOf(p));
+        }
+        return p;
+        
+    }
 }

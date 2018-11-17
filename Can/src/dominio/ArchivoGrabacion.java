@@ -13,17 +13,18 @@ public class ArchivoGrabacion {
           JOptionPane.showMessageDialog(vent, "No se puede crear el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
        }
    }
-   public boolean grabarLinea (String texto, JFrame vent){
-       boolean ok = true;
+    public boolean grabarLinea (String texto, JFrame vent){
+        boolean ok = true;
        try{
-           out.write(texto);
-           out.newLine();
-       }catch(IOException e){
-           JOptionPane.showMessageDialog(vent, "Error al grabar linea", "ERROR", JOptionPane.ERROR_MESSAGE);
-           ok = false;
-       }
-       return ok;
-   }
+            out.write(texto);
+            out.newLine();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(vent, "Error al grabar linea", "ERROR", JOptionPane.ERROR_MESSAGE);
+            ok = false;
+        }
+        return ok;
+    }
+    
     public boolean cerrar(){
         boolean ok = true;
         try{
