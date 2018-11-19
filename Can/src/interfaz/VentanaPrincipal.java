@@ -6,6 +6,7 @@
 package interfaz;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import dominio.Agenda;
 import dominio.ArchivoGrabacion;
@@ -15,9 +16,13 @@ import dominio.Perro;
 import dominio.Sistema;
 import java.awt.CardLayout;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -45,6 +50,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(Sistema unSistema) {
         
         sistema = unSistema;
+        JDateChooser dateChooser1 = new com.toedter.calendar.JDateChooser();
         initComponents();
         jPanelImgInicio.setVisible(true);
         jPanelRegCan.setVisible(false);
@@ -72,6 +78,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        opcionesEventos = new javax.swing.ButtonGroup();
         menuPrincipal = new javax.swing.JPanel();
         jPabelBarraSuperior = new javax.swing.JPanel();
         lbCerrar = new javax.swing.JLabel();
@@ -131,19 +138,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtNombreRegFamiliar = new javax.swing.JTextField();
         txtEmailRegFamiliar = new javax.swing.JTextField();
         jPanelAgenda = new javax.swing.JPanel();
-        jCalendario = new com.toedter.calendar.JCalendar();
         lblAgenda = new javax.swing.JLabel();
         btnEliminarEvento = new javax.swing.JButton();
         btnAgregarEvento = new javax.swing.JButton();
         btnEliminarEvento1 = new javax.swing.JButton();
         listaAgenda = new javax.swing.JScrollPane();
         jListAgenda = new javax.swing.JList();
+        txtFechaEventosAMostrar = new com.toedter.calendar.JDateChooser();
         jMostrarEventosAgenda = new javax.swing.JPanel();
         lblAgenda1 = new javax.swing.JLabel();
-        btnEliminarEvento2 = new javax.swing.JButton();
-        btnAgregarEvento2 = new javax.swing.JButton();
-        btnEliminarEvento3 = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        lblEvento = new javax.swing.JLabel();
+        lblFechaEvento = new javax.swing.JLabel();
+        txtDetallesEvento = new javax.swing.JTextField();
+        lblTipoEvento = new javax.swing.JLabel();
+        lblDetalleEvento = new javax.swing.JLabel();
         jAgregarEventoTipo = new javax.swing.JPanel();
         lblTipoDeEvento = new javax.swing.JLabel();
         btnAgregarAlimentacionEvento = new javax.swing.JButton();
@@ -515,51 +523,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelAgenda.setBackground(new java.awt.Color(217, 201, 201));
         jPanelAgenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jCalendario.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jCalendarioAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        jPanelAgenda.add(jCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 290, 160));
-
         lblAgenda.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
         lblAgenda.setText("Agenda:");
         jPanelAgenda.add(lblAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
 
         btnEliminarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnEliminarEvento.setText("Detalle de evento");
+        btnEliminarEvento.setText("Detalle");
         btnEliminarEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarEventoActionPerformed(evt);
             }
         });
-        jPanelAgenda.add(btnEliminarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 200, -1));
+        jPanelAgenda.add(btnEliminarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 120, -1));
 
         btnAgregarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnAgregarEvento.setText("Agregar evento");
+        btnAgregarEvento.setText("Agregar");
         btnAgregarEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarEventoActionPerformed(evt);
             }
         });
-        jPanelAgenda.add(btnAgregarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 200, -1));
+        jPanelAgenda.add(btnAgregarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 120, -1));
 
         btnEliminarEvento1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnEliminarEvento1.setText("Eliminar evento");
+        btnEliminarEvento1.setText("Eliminar");
         btnEliminarEvento1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarEvento1ActionPerformed(evt);
             }
         });
-        jPanelAgenda.add(btnEliminarEvento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 200, -1));
+        jPanelAgenda.add(btnEliminarEvento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 120, -1));
 
         listaAgenda.setViewportView(jListAgenda);
 
-        jPanelAgenda.add(listaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 120));
+        jPanelAgenda.add(listaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 280, 170));
+        jPanelAgenda.add(txtFechaEventosAMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 30));
 
         jMostrarEventosAgenda.setBackground(new java.awt.Color(217, 201, 201));
         jMostrarEventosAgenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -568,40 +566,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblAgenda1.setText("Agenda:");
         jMostrarEventosAgenda.add(lblAgenda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
 
-        btnEliminarEvento2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnEliminarEvento2.setText("Detalle de evento");
-        btnEliminarEvento2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarEvento2ActionPerformed(evt);
-            }
-        });
-        jMostrarEventosAgenda.add(btnEliminarEvento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 200, -1));
+        lblEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblEvento.setText("Evento");
+        jMostrarEventosAgenda.add(lblEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
-        btnAgregarEvento2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnAgregarEvento2.setText("Agregar evento");
-        btnAgregarEvento2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEvento2ActionPerformed(evt);
-            }
-        });
-        jMostrarEventosAgenda.add(btnAgregarEvento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 200, -1));
+        lblFechaEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblFechaEvento.setText("Fecha de evento");
+        jMostrarEventosAgenda.add(lblFechaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
+        jMostrarEventosAgenda.add(txtDetallesEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 290, 130));
 
-        btnEliminarEvento3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnEliminarEvento3.setText("Eliminar evento");
-        btnEliminarEvento3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarEvento3ActionPerformed(evt);
-            }
-        });
-        jMostrarEventosAgenda.add(btnEliminarEvento3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 200, -1));
-        jMostrarEventosAgenda.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 190, 30));
+        lblTipoEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblTipoEvento.setText("Tipo de evento");
+        jMostrarEventosAgenda.add(lblTipoEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+
+        lblDetalleEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblDetalleEvento.setText("Detalles:");
+        jMostrarEventosAgenda.add(lblDetalleEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         jAgregarEventoTipo.setBackground(new java.awt.Color(217, 201, 201));
         jAgregarEventoTipo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTipoDeEvento.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblTipoDeEvento.setText("Seleccione tipo de evento:");
-        jAgregarEventoTipo.add(lblTipoDeEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
+        jAgregarEventoTipo.add(lblTipoDeEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         btnAgregarAlimentacionEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarAlimentacionEvento.setText("Alimentación");
@@ -610,7 +597,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarAlimentacionEventoActionPerformed(evt);
             }
         });
-        jAgregarEventoTipo.add(btnAgregarAlimentacionEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 230, 50));
+        jAgregarEventoTipo.add(btnAgregarAlimentacionEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 230, 50));
 
         btnAgregarActividadEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarActividadEvento.setText("Actividad");
@@ -619,7 +606,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarActividadEventoActionPerformed(evt);
             }
         });
-        jAgregarEventoTipo.add(btnAgregarActividadEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 230, 50));
+        jAgregarEventoTipo.add(btnAgregarActividadEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 230, 50));
 
         btnAgregarVeterinariaEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarVeterinariaEvento.setText("Veterinaria");
@@ -628,19 +615,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarVeterinariaEventoActionPerformed(evt);
             }
         });
-        jAgregarEventoTipo.add(btnAgregarVeterinariaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 230, 50));
+        jAgregarEventoTipo.add(btnAgregarVeterinariaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 230, 50));
 
         jAgregarVeterinariaEvento.setBackground(new java.awt.Color(217, 201, 201));
         jAgregarVeterinariaEvento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        opcionesEventos.add(btnOtrosVeterinaria);
         btnOtrosVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnOtrosVeterinaria.setText("Otros");
         jAgregarVeterinariaEvento.add(btnOtrosVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 210, -1));
 
+        opcionesEventos.add(btnConsultaEsteticaVeterinaria);
         btnConsultaEsteticaVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnConsultaEsteticaVeterinaria.setText("Consulta estética");
         jAgregarVeterinariaEvento.add(btnConsultaEsteticaVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 210, -1));
 
+        opcionesEventos.add(btnConsultaMedicaVeterinaria);
         btnConsultaMedicaVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
         btnConsultaMedicaVeterinaria.setText("Consulta médica");
         jAgregarVeterinariaEvento.add(btnConsultaMedicaVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
@@ -649,6 +639,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblVeterinaria.setText("Veterinaria:");
         jAgregarVeterinariaEvento.add(lblVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
 
+        opcionesEventos.add(btnCompraVeterinaria);
         btnCompraVeterinaria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnCompraVeterinaria.setText("Compra de artículos varios");
         jAgregarVeterinariaEvento.add(btnCompraVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
@@ -719,7 +710,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(135, Short.MAX_VALUE)
+                    .addContainerGap(205, Short.MAX_VALUE)
                     .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(2, 2, 2)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,7 +760,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(140, Short.MAX_VALUE)
+                    .addContainerGap(170, Short.MAX_VALUE)
                     .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(30, 30, 30)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -856,6 +847,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelMostrarDatosCan.setVisible(false);
         jPanelFamilia.setVisible(true);
         jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(true);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
         
     }//GEN-LAST:event_btnFamiliaActionPerformed
 
@@ -871,6 +867,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jAgregarVeterinariaEvento.setVisible(false);
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
+        String fecha = txtFechaVeterinaria.getDateFormatString();
+        for (int i = 0; i < sistema.listaAgenda.size(); i++) {
+           if(sistema.listaAgenda.get(i).getDate(new JDateChooser()).equals(fecha)){
+               jListAgenda.setListData(sistema.listaAgenda.toArray());
+           }
+            
+        }
     }//GEN-LAST:event_btnAgendaActionPerformed
 
     private void btnEliminarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCanActionPerformed
@@ -916,8 +919,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnMisCanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisCanesActionPerformed
         jPanelImgInicio.setVisible(false);
         jPanelRegCan.setVisible(false);
-        jPanelMostrarDatosCan.setVisible(false);
         jPanelMisCanes.setVisible(true);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
         String retorno = "";
        
     }//GEN-LAST:event_btnMisCanesActionPerformed
@@ -1119,25 +1129,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailRegFamiliarActionPerformed
 
-    private void jCalendarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jCalendarioAncestorAdded
-
-        String dia = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.DAY_OF_MONTH));
-        String mes = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.MONTH)+1);
-        String ano = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.YEAR));
-        String fecha = dia+"/"+mes+"/"+ano;
-        
-        for (int i = 0; i < sistema.listaAgenda.size(); i++) {
-            if(sistema.listaAgenda.get(i).getFecha().equals(fecha)){
-                Agenda agenda = sistema.listaAgenda.get(i);
-                String evento = sistema.listaAgenda.get(i).getEvento();
-                jListAgenda.setListData(sistema.listaAgenda.toArray());
-            }
-        }
-        
-        
-        
-    }//GEN-LAST:event_jCalendarioAncestorAdded
-
     private void btnEliminarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEventoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarEventoActionPerformed
@@ -1160,18 +1151,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jAgregarEventoTipo.setVisible(true);
     }//GEN-LAST:event_btnAgregarEventoActionPerformed
 
-    private void btnEliminarEvento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEvento2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarEvento2ActionPerformed
-
-    private void btnAgregarEvento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEvento2ActionPerformed
-       
-    }//GEN-LAST:event_btnAgregarEvento2ActionPerformed
-
-    private void btnEliminarEvento3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEvento3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarEvento3ActionPerformed
-
     private void btnAgregarAlimentacionEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlimentacionEventoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarAlimentacionEventoActionPerformed
@@ -1189,10 +1168,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
         jAgregarVeterinariaEvento.setVisible(false);
+        
     }//GEN-LAST:event_btnAgregarActividadEventoActionPerformed
 
     private void btnAgregarVeterinariaEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVeterinariaEventoActionPerformed
-          jPanelImgInicio.setVisible(false);
+        jPanelImgInicio.setVisible(false);
         jPanelRegCan.setVisible(false);
         jPanelMisCanes.setVisible(false);
         jPanelMostrarDatosCan.setVisible(false);
@@ -1203,59 +1183,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jAgregarVeterinariaEvento.setVisible(true);
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+       
         
     }//GEN-LAST:event_btnAgregarVeterinariaEventoActionPerformed
 
     private void btnConfirmarEventoVeterinariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEventoVeterinariaActionPerformed
         String evento = "Veterinaria" ;
-        String dia = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.DAY_OF_MONTH));
-        String mes = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.MONTH)+1);
-        String ano = Integer.toString(txtFechaVeterinaria.getCalendar().get(Calendar.YEAR));
-        String fecha = (dia+"/"+mes+"/"+ano);
+       
         String descripcion = txtComentarioVeterinaria.getText();
+        String fecha = txtFechaVeterinaria.getDateFormatString();
         String vacio = "";
-        if (evento.equals(vacio) || !btnOtrosVeterinaria.isSelected() || !btnCompraVeterinaria.isSelected() ||
-            !btnConsultaEsteticaVeterinaria.isSelected()|| !btnConsultaMedicaVeterinaria.isSelected()){
+        if (evento.equals(vacio)){
             JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
         } 
         else {
             Agenda nuevo = new Agenda();
             nuevo.setEvento(evento);
             nuevo.setDescripcion(descripcion);
-            nuevo.setFecha(fecha);
-            
+            nuevo.setDate(fecha);
             JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
            if (btnOtrosVeterinaria.isSelected()){
-               btnConsultaEsteticaVeterinaria.setVisible(false);
-               btnConsultaMedicaVeterinaria.setVisible(false);
-               btnCompraVeterinaria.setVisible(false);
                String tipoEvento1 = "Otros";
                nuevo.setTipoEvento(tipoEvento1);
            }
            else if(btnCompraVeterinaria.isSelected()){
-               btnConsultaEsteticaVeterinaria.setVisible(false);
-               btnConsultaMedicaVeterinaria.setVisible(false);
-               btnOtrosVeterinaria.setVisible(false);
                String tipoEvento2 = "Compra de articulo";
                nuevo.setTipoEvento(tipoEvento2);
            }
            else if(btnConsultaMedicaVeterinaria.isSelected()){
-               btnConsultaEsteticaVeterinaria.setVisible(false);
-               btnCompraVeterinaria.setVisible(false);
-               btnOtrosVeterinaria.setVisible(false);
                String tipoEvento3 = "Consulta medica";
                nuevo.setTipoEvento(tipoEvento3);
            }
            else if(btnConsultaEsteticaVeterinaria.isSelected()){
-               btnConsultaMedicaVeterinaria.setVisible(false);
-               btnCompraVeterinaria.setVisible(false);
-               btnOtrosVeterinaria.setVisible(false);
                String tipoEvento4 = "Consulta estetica";
                nuevo.setTipoEvento(tipoEvento4);
            }
             sistema.listaAgenda.add(nuevo);
             jMostrarEventosAgenda.setVisible(true);
             jAgregarVeterinariaEvento.setVisible(false); 
+            String eventoAux;
+            String tipoEventoAux;
+            String fechaAux;
+            String descripcionAux;
+            eventoAux ="Evento: " + nuevo.getEvento();
+            lblEvento.setText(eventoAux);
+            tipoEventoAux = "Tipo de evento: " + nuevo.getTipoEvento();
+            lblTipoEvento.setText(tipoEventoAux);
+            fechaAux = "Fecha: " + nuevo.getDate(txtFechaVeterinaria);
+            lblFechaEvento.setText(fechaAux);
+            descripcionAux = nuevo.getDescripcion();
+            txtDetallesEvento.setText(descripcionAux);
+            
+            //jPesoPerroPerfil.setText(peso);
         }    
     }//GEN-LAST:event_btnConfirmarEventoVeterinariaActionPerformed
 
@@ -1268,7 +1248,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarAlimentacionEvento;
     private javax.swing.JButton btnAgregarCan;
     private javax.swing.JButton btnAgregarEvento;
-    private javax.swing.JButton btnAgregarEvento2;
     private javax.swing.JButton btnAgregarFamiliar;
     private javax.swing.JButton btnAgregarVeterinariaEvento;
     private javax.swing.JButton btnCancelarEventoVeterinaria;
@@ -1283,8 +1262,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarCan;
     private javax.swing.JButton btnEliminarEvento;
     private javax.swing.JButton btnEliminarEvento1;
-    private javax.swing.JButton btnEliminarEvento2;
-    private javax.swing.JButton btnEliminarEvento3;
     private javax.swing.JButton btnEliminarFamiliar;
     private javax.swing.JButton btnFamilia;
     private javax.swing.JButton btnMisCanes;
@@ -1297,8 +1274,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jAgregarEventoTipo;
     private javax.swing.JPanel jAgregarVeterinariaEvento;
     private javax.swing.JLabel jAlturaPerroPerfil;
-    private com.toedter.calendar.JCalendar jCalendario;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jDescPerroPerfil;
     private javax.swing.JTextField jDescripcionPerroPerfil;
     private javax.swing.JLabel jEmailFamiliarPerfil;
@@ -1331,6 +1306,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblAlturaRegCan1;
     private javax.swing.JLabel lblComentarioVeterinaria;
     private javax.swing.JLabel lblDescripcionRegCan;
+    private javax.swing.JLabel lblDetalleEvento;
+    private javax.swing.JLabel lblEvento;
+    private javax.swing.JLabel lblFechaEvento;
     private javax.swing.JLabel lblFechaVeterinaria;
     private javax.swing.JLabel lblImgRegCan;
     private javax.swing.JLabel lblImgRegCan1;
@@ -1342,14 +1320,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegCan;
     private javax.swing.JLabel lblRegCan1;
     private javax.swing.JLabel lblTipoDeEvento;
+    private javax.swing.JLabel lblTipoEvento;
     private javax.swing.JLabel lblVeterinaria;
     private javax.swing.JScrollPane listaAgenda;
     private javax.swing.JScrollPane listaMisCanes;
     public static javax.swing.JPanel menuPrincipal;
+    private javax.swing.ButtonGroup opcionesEventos;
     private javax.swing.JTextField txtAlturaRegCan;
     private javax.swing.JTextField txtComentarioVeterinaria;
     private javax.swing.JTextField txtDescripcionRegCan;
+    private javax.swing.JTextField txtDetallesEvento;
     private javax.swing.JTextField txtEmailRegFamiliar;
+    private com.toedter.calendar.JDateChooser txtFechaEventosAMostrar;
     private com.toedter.calendar.JDateChooser txtFechaVeterinaria;
     private javax.swing.JTextField txtNombreRegCan;
     private javax.swing.JTextField txtNombreRegFamiliar;

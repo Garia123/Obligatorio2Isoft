@@ -6,6 +6,10 @@
 package dominio;
 
 import com.toedter.calendar.JDateChooser;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -17,14 +21,26 @@ public class Agenda {
    private Familia familiar;
    private Perro perro;
    private String descripcion;
-   private String fecha;
+   JDateChooser fecha;
+   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
    
-   public String getFecha(){
-       return fecha;
-   }
-   public void setFecha(String fecha){
-       this.fecha = fecha;
-   }
+  public String getDate(JDateChooser fecha){
+      if(fecha.getDate() != null){
+          return formato.format(fecha.getDate());
+      }else{
+          return null;
+      }
+  }
+  public Date setDate(String fecha) {
+      SimpleDateFormat formato_del_Texto = new SimpleDateFormat("dd-MM-yyyy");
+      Date fechaE = null;
+      try{
+          fechaE = formato_del_Texto.parse(fecha);
+          return fechaE;
+      }catch(ParseException ex){
+          return null;
+      }
+  }
    public String getDescripcion() {
       return descripcion;
    }
@@ -73,4 +89,5 @@ public class Agenda {
     public String toString(){
        return this.getEvento();
     }
+
 }
