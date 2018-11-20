@@ -63,6 +63,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMostrarEventosAgenda.setVisible(false);
         jAgregarVeterinariaEvento.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
+        jAgregarAlimentacionEvento.setVisible(false);
         this.setLocationRelativeTo(this);
         jList2.setListData(sistema.listaDePerros.toArray());
         jListFamilia.setListData(sistema.listaFamilia.toArray());
@@ -87,7 +88,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnAgenda = new javax.swing.JButton();
         jPanelContenido = new javax.swing.JPanel();
         jPanelImgInicio = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanelRegCan = new javax.swing.JPanel();
         btnCancelarRegCan = new javax.swing.JButton();
         btnSubirImagen = new javax.swing.JButton();
@@ -102,6 +102,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtPesoRegCan = new javax.swing.JTextField();
         txtNombreRegCan = new javax.swing.JTextField();
         txtAlturaRegCan = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jPanelMisCanes = new javax.swing.JPanel();
         listaMisCanes = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
@@ -138,20 +139,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtNombreRegFamiliar = new javax.swing.JTextField();
         txtEmailRegFamiliar = new javax.swing.JTextField();
         jPanelAgenda = new javax.swing.JPanel();
-        lblAgenda = new javax.swing.JLabel();
-        btnEliminarEvento = new javax.swing.JButton();
+        lblPendientesAgenda = new javax.swing.JLabel();
+        btnDetalleEvento = new javax.swing.JButton();
         btnAgregarEvento = new javax.swing.JButton();
-        btnEliminarEvento1 = new javax.swing.JButton();
+        btnEliminarEvento = new javax.swing.JButton();
         listaAgenda = new javax.swing.JScrollPane();
         jListAgenda = new javax.swing.JList();
-        txtFechaEventosAMostrar = new com.toedter.calendar.JDateChooser();
+        lblAgenda2 = new javax.swing.JLabel();
         jMostrarEventosAgenda = new javax.swing.JPanel();
         lblAgenda1 = new javax.swing.JLabel();
         lblEvento = new javax.swing.JLabel();
         lblFechaEvento = new javax.swing.JLabel();
-        txtDetallesEvento = new javax.swing.JTextField();
         lblTipoEvento = new javax.swing.JLabel();
         lblDetalleEvento = new javax.swing.JLabel();
+        lblDetalleEventoComent = new javax.swing.JLabel();
         jAgregarEventoTipo = new javax.swing.JPanel();
         lblTipoDeEvento = new javax.swing.JLabel();
         btnAgregarAlimentacionEvento = new javax.swing.JButton();
@@ -169,6 +170,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblComentarioVeterinaria = new javax.swing.JLabel();
         btnCancelarEventoVeterinaria = new javax.swing.JButton();
         btnConfirmarEventoVeterinaria = new javax.swing.JButton();
+        jAgregarAlimentacionEvento = new javax.swing.JPanel();
+        lblVeterinaria1 = new javax.swing.JLabel();
+        txtComentarioVeterinaria1 = new javax.swing.JTextField();
+        lblFechaAlimentacion = new javax.swing.JLabel();
+        txtFechaAlimentacion = new com.toedter.calendar.JDateChooser();
+        lblResponsableAlimentacion = new javax.swing.JLabel();
+        btnCancelarEventoAlimentacion = new javax.swing.JButton();
+        btnConfirmarEventoAlimentacion = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListResponsables = new javax.swing.JList<>();
+        lblDetalleAlimentacion = new javax.swing.JLabel();
         btnMisCanes = new javax.swing.JButton();
         btnActividades1 = new javax.swing.JButton();
         btnRecordatorios = new javax.swing.JButton();
@@ -258,10 +270,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelImgInicio.setBackground(new java.awt.Color(217, 201, 201));
         jPanelImgInicio.setLayout(new javax.swing.BoxLayout(jPanelImgInicio, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenPrincipal.jpg"))); // NOI18N
-        jLabel1.setText("  ");
-        jPanelImgInicio.add(jLabel1);
-
         jPanelRegCan.setBackground(new java.awt.Color(217, 201, 201));
         jPanelRegCan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -345,6 +353,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanelRegCan.add(txtAlturaRegCan, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 90, 30));
+
+        jPanelImgInicio.add(jPanelRegCan);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenPrincipal.jpg"))); // NOI18N
+        jLabel1.setText("  ");
+        jPanelImgInicio.add(jLabel1);
 
         jPanelMisCanes.setBackground(new java.awt.Color(217, 201, 201));
         jPanelMisCanes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -523,18 +537,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelAgenda.setBackground(new java.awt.Color(217, 201, 201));
         jPanelAgenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblAgenda.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
-        lblAgenda.setText("Agenda:");
-        jPanelAgenda.add(lblAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
+        lblPendientesAgenda.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblPendientesAgenda.setText("Pendientes:");
+        jPanelAgenda.add(lblPendientesAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        btnEliminarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnEliminarEvento.setText("Detalle");
-        btnEliminarEvento.addActionListener(new java.awt.event.ActionListener() {
+        btnDetalleEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnDetalleEvento.setText("Detalle");
+        btnDetalleEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarEventoActionPerformed(evt);
+                btnDetalleEventoActionPerformed(evt);
             }
         });
-        jPanelAgenda.add(btnEliminarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 120, -1));
+        jPanelAgenda.add(btnDetalleEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 120, -1));
 
         btnAgregarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarEvento.setText("Agregar");
@@ -543,21 +557,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarEventoActionPerformed(evt);
             }
         });
-        jPanelAgenda.add(btnAgregarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 120, -1));
+        jPanelAgenda.add(btnAgregarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 120, -1));
 
-        btnEliminarEvento1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnEliminarEvento1.setText("Eliminar");
-        btnEliminarEvento1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnEliminarEvento.setText("Eliminar");
+        btnEliminarEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarEvento1ActionPerformed(evt);
+                btnEliminarEventoActionPerformed(evt);
             }
         });
-        jPanelAgenda.add(btnEliminarEvento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 120, -1));
+        jPanelAgenda.add(btnEliminarEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 120, -1));
 
         listaAgenda.setViewportView(jListAgenda);
 
-        jPanelAgenda.add(listaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 280, 170));
-        jPanelAgenda.add(txtFechaEventosAMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 30));
+        jPanelAgenda.add(listaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 280, 170));
+
+        lblAgenda2.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        lblAgenda2.setText("Agenda:");
+        jPanelAgenda.add(lblAgenda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
         jMostrarEventosAgenda.setBackground(new java.awt.Color(217, 201, 201));
         jMostrarEventosAgenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -573,7 +590,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblFechaEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblFechaEvento.setText("Fecha de evento");
         jMostrarEventosAgenda.add(lblFechaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
-        jMostrarEventosAgenda.add(txtDetallesEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 290, 130));
 
         lblTipoEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTipoEvento.setText("Tipo de evento");
@@ -583,12 +599,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblDetalleEvento.setText("Detalles:");
         jMostrarEventosAgenda.add(lblDetalleEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
+        lblDetalleEventoComent.setBackground(new java.awt.Color(255, 255, 255));
+        lblDetalleEventoComent.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblDetalleEventoComent.setOpaque(true);
+        jMostrarEventosAgenda.add(lblDetalleEventoComent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 290, 130));
+
         jAgregarEventoTipo.setBackground(new java.awt.Color(217, 201, 201));
         jAgregarEventoTipo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTipoDeEvento.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblTipoDeEvento.setText("Seleccione tipo de evento:");
-        jAgregarEventoTipo.add(lblTipoDeEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        jAgregarEventoTipo.add(lblTipoDeEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
 
         btnAgregarAlimentacionEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarAlimentacionEvento.setText("Alimentación");
@@ -597,7 +618,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarAlimentacionEventoActionPerformed(evt);
             }
         });
-        jAgregarEventoTipo.add(btnAgregarAlimentacionEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 230, 50));
+        jAgregarEventoTipo.add(btnAgregarAlimentacionEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 230, 50));
 
         btnAgregarActividadEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarActividadEvento.setText("Actividad");
@@ -606,7 +627,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarActividadEventoActionPerformed(evt);
             }
         });
-        jAgregarEventoTipo.add(btnAgregarActividadEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 230, 50));
+        jAgregarEventoTipo.add(btnAgregarActividadEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 230, 50));
 
         btnAgregarVeterinariaEvento.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnAgregarVeterinariaEvento.setText("Veterinaria");
@@ -615,7 +636,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnAgregarVeterinariaEventoActionPerformed(evt);
             }
         });
-        jAgregarEventoTipo.add(btnAgregarVeterinariaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 230, 50));
+        jAgregarEventoTipo.add(btnAgregarVeterinariaEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 230, 50));
 
         jAgregarVeterinariaEvento.setBackground(new java.awt.Color(217, 201, 201));
         jAgregarVeterinariaEvento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -667,12 +688,56 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jAgregarVeterinariaEvento.add(btnConfirmarEventoVeterinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
 
+        jAgregarAlimentacionEvento.setBackground(new java.awt.Color(217, 201, 201));
+        jAgregarAlimentacionEvento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblVeterinaria1.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        lblVeterinaria1.setText("Alimentación");
+        jAgregarAlimentacionEvento.add(lblVeterinaria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+        jAgregarAlimentacionEvento.add(txtComentarioVeterinaria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 280, 100));
+
+        lblFechaAlimentacion.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblFechaAlimentacion.setText("Fecha:");
+        jAgregarAlimentacionEvento.add(lblFechaAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+        jAgregarAlimentacionEvento.add(txtFechaAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 160, 30));
+
+        lblResponsableAlimentacion.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblResponsableAlimentacion.setText("Seleccione responsable:");
+        jAgregarAlimentacionEvento.add(lblResponsableAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        btnCancelarEventoAlimentacion.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnCancelarEventoAlimentacion.setText("Cancelar");
+        jAgregarAlimentacionEvento.add(btnCancelarEventoAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 120, -1));
+
+        btnConfirmarEventoAlimentacion.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnConfirmarEventoAlimentacion.setText("Confirmar");
+        btnConfirmarEventoAlimentacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEventoAlimentacionActionPerformed(evt);
+            }
+        });
+        jAgregarAlimentacionEvento.add(btnConfirmarEventoAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, -1));
+
+        jListResponsables.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jListResponsables);
+
+        jAgregarAlimentacionEvento.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 280, 100));
+
+        lblDetalleAlimentacion.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblDetalleAlimentacion.setText("Detalle del alimento:");
+        jAgregarAlimentacionEvento.add(lblDetalleAlimentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+
         javax.swing.GroupLayout jPanelContenidoLayout = new javax.swing.GroupLayout(jPanelContenido);
         jPanelContenido.setLayout(jPanelContenidoLayout);
         jPanelContenidoLayout.setHorizontalGroup(
             jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanelRegCan, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -700,32 +765,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(78, Short.MAX_VALUE)
-                    .addComponent(jPanelAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(48, Short.MAX_VALUE)))
+                    .addContainerGap(39, Short.MAX_VALUE)
+                    .addComponent(jPanelAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(25, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContenidoLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jMostrarEventosAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(205, Short.MAX_VALUE)
-                    .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(2, 2, 2)))
+                .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContenidoLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jAgregarVeterinariaEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jAgregarAlimentacionEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanelContenidoLayout.setVerticalGroup(
             jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelImgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanelRegCan, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(60, Short.MAX_VALUE)
+                    .addContainerGap(105, Short.MAX_VALUE)
                     .addComponent(jPanelMisCanes, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -740,7 +806,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(145, Short.MAX_VALUE)
+                    .addContainerGap(193, Short.MAX_VALUE)
                     .addComponent(jPanelMostrarDatosFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -750,23 +816,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(53, Short.MAX_VALUE)
+                    .addContainerGap(77, Short.MAX_VALUE)
                     .addComponent(jPanelAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(29, Short.MAX_VALUE)))
+                    .addContainerGap(53, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContenidoLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jMostrarEventosAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenidoLayout.createSequentialGroup()
-                    .addContainerGap(170, Short.MAX_VALUE)
-                    .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(30, 30, 30)))
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(61, 61, 61)
+                    .addComponent(jAgregarEventoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContenidoLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jAgregarVeterinariaEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelContenidoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jAgregarAlimentacionEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -852,6 +923,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jAgregarVeterinariaEvento.setVisible(false);
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
+        jAgregarAlimentacionEvento.setVisible(false);
         
     }//GEN-LAST:event_btnFamiliaActionPerformed
 
@@ -867,13 +939,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jAgregarVeterinariaEvento.setVisible(false);
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
-        String fecha = txtFechaVeterinaria.getDateFormatString();
+        jAgregarAlimentacionEvento.setVisible(false);
         for (int i = 0; i < sistema.listaAgenda.size(); i++) {
-           if(sistema.listaAgenda.get(i).getDate(new JDateChooser()).equals(fecha)){
-               jListAgenda.setListData(sistema.listaAgenda.toArray());
-           }
-            
+             jListAgenda.setListData(sistema.ordenarPorFecha().toArray());
         }
+        
+      
     }//GEN-LAST:event_btnAgendaActionPerformed
 
     private void btnEliminarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCanActionPerformed
@@ -891,9 +962,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnMostrarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarCanActionPerformed
         jPanelImgInicio.setVisible(false);
-        jPanelMisCanes.setVisible(false);
         jPanelRegCan.setVisible(false);
+        jPanelMisCanes.setVisible(false);
         jPanelMostrarDatosCan.setVisible(true);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
+        jAgregarAlimentacionEvento.setVisible(false);
         
         String nombre;
         String altura;
@@ -928,6 +1007,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jAgregarVeterinariaEvento.setVisible(false);
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
+        jAgregarAlimentacionEvento.setVisible(false);
         String retorno = "";
        
     }//GEN-LAST:event_btnMisCanesActionPerformed
@@ -1034,11 +1114,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAgregarCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCanActionPerformed
-        jPanelImgInicio.setVisible(false);
-        jPanelFamilia.setVisible(false);
-        jPanelMisCanes.setVisible(false);
+      jPanelImgInicio.setVisible(false);
         jPanelRegCan.setVisible(true);
-        //jPanelRegFamiliar.setVisible(true);
+        jPanelMisCanes.setVisible(false);
+        jPanelMostrarDatosCan.setVisible(false);
+        jPanelFamilia.setVisible(false);
+        jPanelRegFamiliar.setVisible(false);
+        jPanelMostrarDatosFamilia.setVisible(false);
+        jPanelAgenda.setVisible(false);
+        jMostrarEventosAgenda.setVisible(false);
+        jAgregarVeterinariaEvento.setVisible(false);
+        jAgregarEventoTipo.setVisible(false);
+        jAgregarAlimentacionEvento.setVisible(false);
            }//GEN-LAST:event_btnAgregarCanActionPerformed
 
     private void btnEliminarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFamiliarActionPerformed
@@ -1062,6 +1149,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelFamilia.setVisible(false);
         jPanelRegFamiliar.setVisible(false);
         jPanelMostrarDatosFamilia.setVisible(true);
+        jAgregarAlimentacionEvento.setVisible(false);
         
         String nombre;
         String email;
@@ -1083,6 +1171,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanelFamilia.setVisible(false);
         jPanelMostrarDatosFamilia.setVisible(false);
         jPanelRegFamiliar.setVisible(true);
+        jAgregarAlimentacionEvento.setVisible(false);
     }//GEN-LAST:event_btnAgregarFamiliarActionPerformed
 
     private void btnCancelarRegFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegFamiliarActionPerformed
@@ -1129,13 +1218,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailRegFamiliarActionPerformed
 
+    private void btnDetalleEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleEventoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDetalleEventoActionPerformed
+
     private void btnEliminarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEventoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarEventoActionPerformed
-
-    private void btnEliminarEvento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEvento1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarEvento1ActionPerformed
 
     private void btnAgregarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEventoActionPerformed
         jPanelImgInicio.setVisible(false);
@@ -1184,6 +1273,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMostrarEventosAgenda.setVisible(false);
         jAgregarEventoTipo.setVisible(false);
         jMostrarEventosAgenda.setVisible(false);
+        jAgregarAlimentacionEvento.setVisible(false);
        
         
     }//GEN-LAST:event_btnAgregarVeterinariaEventoActionPerformed
@@ -1192,17 +1282,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String evento = "Veterinaria" ;
        
         String descripcion = txtComentarioVeterinaria.getText();
-        String fecha = txtFechaVeterinaria.getDateFormatString();
+        Date fecha = txtFechaVeterinaria.getDate();
         String vacio = "";
-        if (evento.equals(vacio)){
-            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
+        Date fecha1 = new Date();
+        if (evento.equals(vacio) && fecha.compareTo(fecha1)>0){
+            
+           JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error", JOptionPane.WARNING_MESSAGE);
         } 
         else {
             Agenda nuevo = new Agenda();
             nuevo.setEvento(evento);
             nuevo.setDescripcion(descripcion);
-            nuevo.setDate(fecha);
-            JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
+            nuevo.setFecha(fecha);
+            //nuevo.setDate(fecha);
+            
            if (btnOtrosVeterinaria.isSelected()){
                String tipoEvento1 = "Otros";
                nuevo.setTipoEvento(tipoEvento1);
@@ -1220,6 +1313,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                nuevo.setTipoEvento(tipoEvento4);
            }
             sistema.listaAgenda.add(nuevo);
+            jListAgenda.setListData(sistema.listaAgenda.toArray());
+            JOptionPane.showMessageDialog(this, "Los datos fueron ingresados correctamente.", "OK", JOptionPane.INFORMATION_MESSAGE);
             jMostrarEventosAgenda.setVisible(true);
             jAgregarVeterinariaEvento.setVisible(false); 
             String eventoAux;
@@ -1230,14 +1325,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             lblEvento.setText(eventoAux);
             tipoEventoAux = "Tipo de evento: " + nuevo.getTipoEvento();
             lblTipoEvento.setText(tipoEventoAux);
-            fechaAux = "Fecha: " + nuevo.getDate(txtFechaVeterinaria);
+            fechaAux = "Fecha: " + nuevo.getFecha();
             lblFechaEvento.setText(fechaAux);
             descripcionAux = nuevo.getDescripcion();
-            txtDetallesEvento.setText(descripcionAux);
-            
-            //jPesoPerroPerfil.setText(peso);
+            lblDetalleEventoComent.setText(descripcionAux);
         }    
     }//GEN-LAST:event_btnConfirmarEventoVeterinariaActionPerformed
+
+    private void btnConfirmarEventoAlimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEventoAlimentacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfirmarEventoAlimentacionActionPerformed
 
    
 
@@ -1250,18 +1347,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarEvento;
     private javax.swing.JButton btnAgregarFamiliar;
     private javax.swing.JButton btnAgregarVeterinariaEvento;
+    private javax.swing.JButton btnCancelarEventoAlimentacion;
     private javax.swing.JButton btnCancelarEventoVeterinaria;
     private javax.swing.JButton btnCancelarRegCan;
     private javax.swing.JButton btnCancelarRegFamiliar;
     private javax.swing.JRadioButton btnCompraVeterinaria;
+    private javax.swing.JButton btnConfirmarEventoAlimentacion;
     private javax.swing.JButton btnConfirmarEventoVeterinaria;
     private javax.swing.JButton btnConfirmarRegCan;
     private javax.swing.JButton btnConfirmarRegFamiliar;
     private javax.swing.JRadioButton btnConsultaEsteticaVeterinaria;
     private javax.swing.JRadioButton btnConsultaMedicaVeterinaria;
+    private javax.swing.JButton btnDetalleEvento;
     private javax.swing.JButton btnEliminarCan;
     private javax.swing.JButton btnEliminarEvento;
-    private javax.swing.JButton btnEliminarEvento1;
     private javax.swing.JButton btnEliminarFamiliar;
     private javax.swing.JButton btnFamilia;
     private javax.swing.JButton btnMisCanes;
@@ -1271,6 +1370,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRecordatorios;
     private javax.swing.JButton btnSubirImagen;
     private javax.swing.JButton btnSubirImagenFamiliar;
+    private javax.swing.JPanel jAgregarAlimentacionEvento;
     private javax.swing.JPanel jAgregarEventoTipo;
     private javax.swing.JPanel jAgregarVeterinariaEvento;
     private javax.swing.JLabel jAlturaPerroPerfil;
@@ -1283,6 +1383,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JList jList2;
     private javax.swing.JList jListAgenda;
     private javax.swing.JList jListFamilia;
+    private javax.swing.JList<String> jListResponsables;
     private javax.swing.JScrollPane jListaFamilia;
     private javax.swing.JPanel jMostrarEventosAgenda;
     private javax.swing.JLabel jNombreFamiliarPerfil;
@@ -1298,16 +1399,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRegCan;
     private javax.swing.JPanel jPanelRegFamiliar;
     private javax.swing.JLabel jPesoPerroPerfil;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbMinimizar;
-    private javax.swing.JLabel lblAgenda;
     private javax.swing.JLabel lblAgenda1;
+    private javax.swing.JLabel lblAgenda2;
     private javax.swing.JLabel lblAlturaRegCan;
     private javax.swing.JLabel lblAlturaRegCan1;
     private javax.swing.JLabel lblComentarioVeterinaria;
     private javax.swing.JLabel lblDescripcionRegCan;
+    private javax.swing.JLabel lblDetalleAlimentacion;
     private javax.swing.JLabel lblDetalleEvento;
+    private javax.swing.JLabel lblDetalleEventoComent;
     private javax.swing.JLabel lblEvento;
+    private javax.swing.JLabel lblFechaAlimentacion;
     private javax.swing.JLabel lblFechaEvento;
     private javax.swing.JLabel lblFechaVeterinaria;
     private javax.swing.JLabel lblImgRegCan;
@@ -1316,22 +1421,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblMisCanes;
     private javax.swing.JLabel lblNombreRegCan;
     private javax.swing.JLabel lblNombreRegCan1;
+    private javax.swing.JLabel lblPendientesAgenda;
     private javax.swing.JLabel lblPesoRegCan;
     private javax.swing.JLabel lblRegCan;
     private javax.swing.JLabel lblRegCan1;
+    private javax.swing.JLabel lblResponsableAlimentacion;
     private javax.swing.JLabel lblTipoDeEvento;
     private javax.swing.JLabel lblTipoEvento;
     private javax.swing.JLabel lblVeterinaria;
+    private javax.swing.JLabel lblVeterinaria1;
     private javax.swing.JScrollPane listaAgenda;
     private javax.swing.JScrollPane listaMisCanes;
     public static javax.swing.JPanel menuPrincipal;
     private javax.swing.ButtonGroup opcionesEventos;
     private javax.swing.JTextField txtAlturaRegCan;
     private javax.swing.JTextField txtComentarioVeterinaria;
+    private javax.swing.JTextField txtComentarioVeterinaria1;
     private javax.swing.JTextField txtDescripcionRegCan;
-    private javax.swing.JTextField txtDetallesEvento;
     private javax.swing.JTextField txtEmailRegFamiliar;
-    private com.toedter.calendar.JDateChooser txtFechaEventosAMostrar;
+    private com.toedter.calendar.JDateChooser txtFechaAlimentacion;
     private com.toedter.calendar.JDateChooser txtFechaVeterinaria;
     private javax.swing.JTextField txtNombreRegCan;
     private javax.swing.JTextField txtNombreRegFamiliar;

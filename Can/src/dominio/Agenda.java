@@ -15,22 +15,23 @@ import java.util.Date;
  *
  * @author uuu
  */
-public class Agenda {
+public class Agenda implements Comparable {
    private String evento;
    private String tipoEvento;
    private Familia familiar;
    private Perro perro;
    private String descripcion;
-   JDateChooser fecha;
+   Date fecha;
    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
    
-  public String getDate(JDateChooser fecha){
+    /* public String getDate(JDateChooser fecha){
       if(fecha.getDate() != null){
           return formato.format(fecha.getDate());
       }else{
           return null;
       }
   }
+ 
   public Date setDate(String fecha) {
       SimpleDateFormat formato_del_Texto = new SimpleDateFormat("dd-MM-yyyy");
       Date fechaE = null;
@@ -40,16 +41,27 @@ public class Agenda {
       }catch(ParseException ex){
           return null;
       }
-  }
+  }*/
+   public String getFecha(){
+       return formato.format(fecha);
+   }
+   public void setFecha(Date fecha){
+       this.fecha = fecha;
+   }
+   
+    
    public String getDescripcion() {
       return descripcion;
    }
+  
    public void setDescripcion(String descripcion) {
       this.descripcion = descripcion;
    }
+   
    public String getEvento() {
       return evento;
    }
+   
    public void setEvento(String evento) {
       this.evento = evento;
    }
@@ -77,17 +89,37 @@ public class Agenda {
        this.setDescripcion(" ");
        this.setPerro(null);
        this.setFamilia(null);
+       this.setFecha(null);
    }
-   public Agenda(Familia familiar, Perro perro, String tipoEvento, String evento,String descripcion){
+  
+ 
+   public Agenda(Familia familiar, Perro perro, String tipoEvento, String evento,String descripcion, Date fecha){
        this.setTipoEvento(tipoEvento);
        this.setEvento(evento);
        this.setFamilia(familiar);
        this.setPerro(perro);
-       this.setDescripcion(" ");
+       this.setDescripcion(descripcion);
+       this.setFecha(fecha);
    }
     @Override
     public String toString(){
-       return this.getEvento();
+       return this.getEvento()+" - " + this.getFecha();
     }
+
+    @Override
+    public int compareTo(Object t) {
+        String [] fecha1 = this.getFecha().split("/");
+      String [] fecha2= ((Agenda)t).getFecha().split("/");
+      int retorno = Integer.parseInt(fecha1[2])-Integer.parseInt(fecha2[2]);
+      if(retorno == 0){
+          retorno = Integer.parseInt(fecha1[1])-Integer.parseInt(fecha2[1]);
+          if(retorno == 0){
+              retorno = Integer.parseInt(fecha1[0])-Integer.parseInt(fecha2[0]);
+          }
+      }
+      return retorno;
+    }
+
+   
 
 }

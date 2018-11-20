@@ -8,6 +8,7 @@ package dominio;
 
 import interfaz.VentanaPrincipal;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -25,7 +26,7 @@ public class Sistema {
         listaFamilia = new ArrayList<>();
         listaAgenda = new ArrayList<>();
     }
-    public void agregarSgenda(Agenda unaAgenda){
+    public void agregarAgenda(Agenda unaAgenda){
         this.listaAgenda.add(unaAgenda);
     }
     public void agregarPerro(Perro unPerro){
@@ -85,5 +86,9 @@ public class Sistema {
         }
         return p;
         
+    }
+        public ArrayList<Agenda> ordenarPorFecha(){
+        Collections.sort(this.listaAgenda);
+        return this.listaAgenda;
     }
 }
