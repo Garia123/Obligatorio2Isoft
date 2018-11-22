@@ -6,6 +6,7 @@
 package dominio;
 
 import java.util.Date;
+import javax.swing.JLabel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,6 +19,8 @@ import static org.junit.Assert.*;
  * @author uuu
  */
 public class AgendaTest {
+    
+    Agenda instancia;
     
     public AgendaTest() {
     }
@@ -43,13 +46,11 @@ public class AgendaTest {
      */
     @Test
     public void testGetFecha() {
-        System.out.println("getFecha");
-        Agenda instance = new Agenda();
-        String expResult = "";
-        String result = instance.getFecha();
+        instancia = new Agenda();
+        instancia.setFecha(new Date(120, 0, 1));
+        String expResult = "01/01/2020";
+        String result = instancia.getFecha();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,12 +58,11 @@ public class AgendaTest {
      */
     @Test
     public void testSetFecha() {
-        System.out.println("setFecha");
-        Date fecha = null;
-        Agenda instance = new Agenda();
-        instance.setFecha(fecha);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instancia = new Agenda();
+        instancia.setFecha(new Date(120, 0, 1));
+        String expResult = "01/01/2020";
+        String result = instancia.getFecha();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -70,13 +70,11 @@ public class AgendaTest {
      */
     @Test
     public void testGetDescripcion() {
-        System.out.println("getDescripcion");
-        Agenda instance = new Agenda();
-        String expResult = "";
-        String result = instance.getDescripcion();
+        instancia = new Agenda();
+        instancia.setDescripcion("Descripcion ejemplo");
+        String expResult = "Descripcion ejemplo";
+        String result = instancia.getDescripcion();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -84,12 +82,11 @@ public class AgendaTest {
      */
     @Test
     public void testSetDescripcion() {
-        System.out.println("setDescripcion");
-        String descripcion = "";
-        Agenda instance = new Agenda();
-        instance.setDescripcion(descripcion);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instancia = new Agenda();
+        instancia.setDescripcion("Descripcion ejemplo");
+        String expResult = "Descripcion ejemplo";
+        String result = instancia.getDescripcion();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -97,13 +94,11 @@ public class AgendaTest {
      */
     @Test
     public void testGetEvento() {
-        System.out.println("getEvento");
-        Agenda instance = new Agenda();
-        String expResult = "";
-        String result = instance.getEvento();
+        instancia = new Agenda();
+        instancia.setEvento("Evento ejemplo");
+        String expResult = "Evento ejemplo";
+        String result = instancia.getEvento();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,12 +106,11 @@ public class AgendaTest {
      */
     @Test
     public void testSetEvento() {
-        System.out.println("setEvento");
-        String evento = "";
-        Agenda instance = new Agenda();
-        instance.setEvento(evento);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instancia = new Agenda();
+        instancia.setEvento("Evento ejemplo");
+        String expResult = "Evento ejemplo";
+        String result = instancia.getEvento();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -124,13 +118,11 @@ public class AgendaTest {
      */
     @Test
     public void testGetTipoEvento() {
-        System.out.println("getTipoEvento");
-        Agenda instance = new Agenda();
-        String expResult = "";
-        String result = instance.getTipoEvento();
+        instancia = new Agenda();
+        instancia.setTipoEvento("Tipo evento ejemplo");
+        String expResult = "Tipo evento ejemplo";
+        String result = instancia.getTipoEvento();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,66 +130,155 @@ public class AgendaTest {
      */
     @Test
     public void testSetTipoEvento() {
-        System.out.println("setTipoEvento");
-        String tipoEvento = "";
-        Agenda instance = new Agenda();
-        instance.setTipoEvento(tipoEvento);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instancia = new Agenda();
+        instancia.setTipoEvento("Tipo evento ejemplo");
+        String expResult = "Tipo evento ejemplo";
+        String result = instancia.getTipoEvento();
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of getFamilia method, of class Agenda.
      */
     @Test
-    public void testGetFamilia() {
-        System.out.println("getFamilia");
-        Agenda instance = new Agenda();
-        Familia expResult = null;
-        Familia result = instance.getFamilia();
+    public void testGetFamiliaIgualAtributos() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Nombre ejemplo", "Email ejemplo");
+        Familia result = instancia.getFamilia();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getFamilia method, of class Agenda.
+     */
+    @Test
+    public void testGetFamiliaIgualNombre() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Nombre ejemplo", "Ejemplo email");
+        Familia result = instancia.getFamilia();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getFamilia method, of class Agenda.
+     */
+    @Test
+    public void testGetFamiliaIgualEmail() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Ejemplo nombre", "Email ejemplo");
+        Familia result = instancia.getFamilia();
+        assertNotEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getFamilia method, of class Agenda.
+     */
+    @Test
+    public void testGetFamiliaDistintosAtributos() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Ejemplo nombre", "Ejemplo email");
+        Familia result = instancia.getFamilia();
+        assertNotEquals(expResult, result);
     }
 
     /**
      * Test of setFamilia method, of class Agenda.
      */
     @Test
-    public void testSetFamilia() {
-        System.out.println("setFamilia");
-        Familia familiar = null;
-        Agenda instance = new Agenda();
-        instance.setFamilia(familiar);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSetFamiliaIgualAtributos() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Nombre ejemplo", "Email ejemplo");
+        Familia result = instancia.getFamilia();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of setFamilia method, of class Agenda.
+     */
+    @Test
+    public void testSetFamiliaIgualNombre() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Nombre ejemplo", "Ejemplo email");
+        Familia result = instancia.getFamilia();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of setFamilia method, of class Agenda.
+     */
+    @Test
+    public void testSetFamiliaIgualEmail() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Ejemplo nombre", "Email ejemplo");
+        Familia result = instancia.getFamilia();
+        assertNotEquals(expResult, result);
+    }
+    
+    /**
+     * Test of setFamilia method, of class Agenda.
+     */
+    @Test
+    public void testSetFamiliaDistintosAtributos() {
+        instancia = new Agenda();
+        instancia.setFamilia(new Familia("Nombre ejemplo", "Email ejemplo"));
+        Familia expResult = new Familia("Ejemplo nombre", "Ejemplo email");
+        Familia result = instancia.getFamilia();
+        assertNotEquals(expResult, result);
     }
 
     /**
      * Test of getPerro method, of class Agenda.
      */
     @Test
-    public void testGetPerro() {
-        System.out.println("getPerro");
-        Agenda instance = new Agenda();
-        Perro expResult = null;
-        Perro result = instance.getPerro();
+    public void testGetPerroIgualNombre() {
+        instancia = new Agenda();
+        instancia.setPerro(new Perro("Nombre ejemplo", 0, 0, "", null));
+        Perro expResult = new Perro("Nombre ejemplo", 0, 0, "", null);
+        Perro result = instancia.getPerro();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getPerro method, of class Agenda.
+     */
+    @Test
+    public void testGetPerroDistintoNombre() {
+        instancia = new Agenda();
+        instancia.setPerro(new Perro("Nombre ejemplo", 0, 0, "", null));
+        Perro expResult = new Perro("Ejemplo nombre", 0, 0, "", null);
+        Perro result = instancia.getPerro();
+        assertNotEquals(expResult, result);
     }
 
     /**
      * Test of setPerro method, of class Agenda.
      */
     @Test
-    public void testSetPerro() {
-        System.out.println("setPerro");
-        Perro perro = null;
-        Agenda instance = new Agenda();
-        instance.setPerro(perro);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSetPerroIgualNombre() {
+        instancia = new Agenda();
+        instancia.setPerro(new Perro("Nombre ejemplo", 0, 0, "", null));
+        Perro expResult = new Perro("Nombre ejemplo", 0, 0, "", null);
+        Perro result = instancia.getPerro();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of setPerro method, of class Agenda.
+     */
+    @Test
+    public void testSetPerroDistintoNombre() {
+        instancia = new Agenda();
+        instancia.setPerro(new Perro("Nombre ejemplo", 0, 0, "", null));
+        Perro expResult = new Perro("Ejemplo nombre", 0, 0, "", null);
+        Perro result = instancia.getPerro();
+        assertNotEquals(expResult, result);
     }
 
     /**
@@ -205,28 +286,47 @@ public class AgendaTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
-        Agenda instance = new Agenda();
-        String expResult = "";
-        String result = instance.toString();
+        instancia = new Agenda();
+        instancia.setEvento("Evento ejemplo");
+        instancia.setFecha(new Date(120, 0, 1));
+        String expResult = "Evento ejemplo - 01/01/2020";
+        String result = instancia.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of compareTo method, of class Agenda.
      */
     @Test
-    public void testCompareTo() {
-        System.out.println("compareTo");
-        Object t = null;
-        Agenda instance = new Agenda();
+    public void testCompareToPrimeroMayor() {
+        Object t = new Agenda(null, null, "", "", "", new Date(120, 0, 1));
+        Agenda instance = new Agenda(null, null, "", "", "", new Date(121, 0, 1));
+        int expResult = 1;
+        int result = instance.compareTo(t);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of compareTo method, of class Agenda.
+     */
+    @Test
+    public void testCompareToSegundoMayor() {
+        Object t = new Agenda(null, null, "", "", "", new Date(121, 0, 1));
+        Agenda instance = new Agenda(null, null, "", "", "", new Date(120, 0, 1));
+        int expResult = -1;
+        int result = instance.compareTo(t);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of compareTo method, of class Agenda.
+     */
+    @Test
+    public void testCompareToIguales() {
+        Object t = new Agenda(null, null, "", "", "", new Date(120, 0, 1));
+        Agenda instance = new Agenda(null, null, "", "", "", new Date(120, 0, 1));
         int expResult = 0;
         int result = instance.compareTo(t);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
 }

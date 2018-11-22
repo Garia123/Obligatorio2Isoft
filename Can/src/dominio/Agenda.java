@@ -22,33 +22,22 @@ public class Agenda implements Comparable {
    private Perro perro;
    private String descripcion;
    Date fecha;
-   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-   
-    /* public String getDate(JDateChooser fecha){
-      if(fecha.getDate() != null){
-          return formato.format(fecha.getDate());
-      }else{
-          return null;
-      }
-  }
- 
-  public Date setDate(String fecha) {
-      SimpleDateFormat formato_del_Texto = new SimpleDateFormat("dd-MM-yyyy");
-      Date fechaE = null;
-      try{
-          fechaE = formato_del_Texto.parse(fecha);
-          return fechaE;
-      }catch(ParseException ex){
-          return null;
-      }
-  }*/
+   String hora;
+   SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+   SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
+  
    public String getFecha(){
-       return formato.format(fecha);
+       return formatoFecha.format(fecha);
    }
    public void setFecha(Date fecha){
        this.fecha = fecha;
    }
-   
+   public String getHora(){
+       return hora;
+   }
+   public void setHora(String hora){
+       this.hora = hora;
+   }
     
    public String getDescripcion() {
       return descripcion;

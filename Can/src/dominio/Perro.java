@@ -11,13 +11,13 @@ public class Perro {
     private float altura;
     private float peso;
     private String comentario;
-    private JLabel imagen;
+    private String imagen;
 
     //Gets & Sets
-    public JLabel getImagen(){
+    public String getImagen(){
         return imagen;
     }
-    public void setImagen(JLabel img){
+    public void setImagen(String img){
         this.imagen = img;
     }
     public String getNombre() {
